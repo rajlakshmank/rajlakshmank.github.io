@@ -1,8 +1,21 @@
 <html>
     <body>
-        <h1>Hi there</h1>
+        <h3>Data Visualization Practice</h3>
         <p>
-            Hello World! This is my first html page published!
+            Trying different options
         </p>
+        <svg width=150 height=300>
+
+        </svg>
+        <script>
+            d3.select("svg")
+            .selectAll("circle")
+            .enter()
+            .append("circle")
+            .attr("cx",50)
+            .attr("cy",50)
+            .attr("r",100)
+            .style("fill","blue")
+        </script>
     </body>
 </html>
