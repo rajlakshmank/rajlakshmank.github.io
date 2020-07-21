@@ -11,10 +11,10 @@
         </svg>
         <script>
             async function init() {
-                const data = await d3.csv('./data/top-10-countries-population-data.csv');
-                console.log.data(data);
+                const dat = await d3.csv('https://raw.githubusercontent.com/rajlakshmank/rajlakshmank.github.io/master/data/top-10-countries-population-data.csv');
+                console.log.data(dat);
 
-                var datan = [4,8,15,16,23,42];
+                var data = [4,8,15,16,23,42];
                 var color = ['pink','lightyellow','lightgreen','lightcyan','lightblue','violet'];
                 var pie = d3.pie();
                 var arc = d3.arc().innerRadius(55).outerRadius(100);
@@ -25,7 +25,7 @@
                 .append("g")
                 .attr("transform","translate(150,150)")
                 .selectAll("path")
-                .data(pie(datan))
+                .data(pie(data))
                 .enter()
                 .append("path")
                 .attr("d",arc)
