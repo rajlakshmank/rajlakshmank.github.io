@@ -1,37 +1,22 @@
 <html>
-    <script src='https://d3js.org/d3.v5.min.js'></script>
-    <style> path {stroke: black;}</style>
-    <body onload='init()'>
-        <h3>Data Visualization Practice</h3>
-        <p>
-            Trying different options
-        </p>
-        <svg width=300 height=300>
-
-        </svg>
-        <script>
-            async function init() {
-                const dat = await d3.csv('https://raw.githubusercontent.com/rajlakshmank/rajlakshmank.github.io/master/data/top-10-countries-population-data.csv');
-                console.log.data(dat);
-
-                var data = [4,8,15,16,23,42];
-                var color = ['pink','lightyellow','lightgreen','lightcyan','lightblue','violet'];
-                var pie = d3.pie();
-                var arc = d3.arc().innerRadius(55).outerRadius(100);
+<script src='https://d3js.org/d3.v5.min.js'></script>
+<style> circle {fill: lightblue; stroke: black;} </style>
+<body onload='init()'>
+<svg width=300 height=300>
+</svg>
+<script>
+async function init() {
+                const data = await d3.csv('https://raw.githubusercontent.com/rajlakshmank/rajlakshmank.github.io/master/data/top-10-countries-population-data.csv');
+                console.log(data);
             
-            
-
-                d3.select("svg")
-                .append("g")
-                .attr("transform","translate(150,150)")
-                .selectAll("path")
-                .data(pie(data))
-                .enter()
-                .append("path")
-                .attr("d",arc)
-                .attr("fill",function(d,i) {return color[i];});
-            }
-            
+                //d3.select("body")
+                //.append("g")
+                //.selectAll("p")
+                //.data(data)
+                //.enter()
+                //.append("p")
+                //.html(function(d,i) {return 'item' + d.item + ' is ' + d.number + '.';});
+            } 
         </script>
     </body>
 </html>
