@@ -1,9 +1,9 @@
 states,category,year,population,lit_rate,fert_rate,pop_growth,pop_growth_rural,pop_growth_urban
-A & N Islands,Non-EAG,2001,356152,81.3,1.9,26.9,16.6,55
-A & N Islands,Non-EAG,2011,379944,86.27,1.5,6.9,-1.2,23.5
 INDIA,Country,2001,1028737436,64.83,2.6,21.5,19.2,32.6
 INDIA,Country,2011,1210193422,74.04,2.1,17.7,12.3,31.8
 INDIA,Country,2020,1371360351,81.3,1.9,13.3,8.6,41.2
+A & N Islands,Non-EAG,2001,356152,81.3,1.9,26.9,16.6,55
+A & N Islands,Non-EAG,2011,379944,86.27,1.5,6.9,-1.2,23.5
 A & N Islands,Non-EAG,2020,417036,91.1,1.5,9.8,4.2,32.3
 Andhra Pradesh,Non-EAG,2001,45229393,66.64,2.3,14.6,13.9,16.3
 Andhra Pradesh,Non-EAG,2011,49471555,75.6,1.8,11,1.7,35.6
