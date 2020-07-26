@@ -1,0 +1,301 @@
+<html lang="en">
+    <head>
+        <title>DV Slide 1</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- Load d3.js -->
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+        <!-- Load stylesheets -->
+        <link rel='stylesheet' type='text/css' href='./stylesheets/page-style.css'>
+
+        <style>
+            /* Page Content */
+            .content {padding:20px;}
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Is India Slowing Its Population Growth?</h1>
+            <p class="header-text-footer-1">Data Visualization Aassignment - UIUC - MSDS</p>
+            <p class="header-text-footer-2">by Rajlakshman Kulkarni</p>
+        </div>
+
+        <div class="navbar">
+            <a href="file:///Users/rajkulkarni/Documents/GitHub/rajlakshmank.github.io/dv_slide2.html" class="right">Next &raquo;</a>
+            <a href="file:///Users/rajkulkarni/Documents/GitHub/rajlakshmank.github.io/dv_slide1.html" class="right">Home</a>
+          </div>
+
+        <div class="row">
+            <div class="column1">
+                <article class="dv_article">
+                    <article class="dv_article_main">
+                        <p>
+                            <b>“Hum Do Hamare Do”</b> which means <b>“We Two, Ours Two”</b> <br> A family planning initiative launched by 
+                            the government of India in 1952 which encouraged couples to have at most two kids. Every government 
+                            thereafter crafted a range of population policies for Indians to have smaller families. 
+                            By 2027, India is set to surpass China as the world's most populous country as per United Nations projects. 
+                            Is India taking necessary measures and making progress in slowing its population growth?
+                        </p> 
+                        <hr>
+                    </article>
+                    <h3>India in world population</h3>
+                    <p>
+                        India in world population now has 1.37 billion people - second only to China 1.4 billion. 
+                        China and India together contribute half of the world population. At present, one out of every six persons 
+                        in the world is from India. Among the 10 most populated countries, India and Bangladesh top the chart on 
+                        higher population density. India has just 2.4% world surface but supports and sustains a 
+                        whooping 17.5% of the world population. At the current rate it's been estimated that India’s population will 
+                        peak in the early 2060’s at 1.7 billion, putting additional pressure on the environment, natural resources 
+                        and economy. Hence curbing population growth definitely promises a better future for its citizens.
+                    </p>
+                </article>
+            </div>
+            <div class="column2">
+                <div id="scene_1_dv1">
+                    <h2 class="graph_header">Worlds 10 most populus countries</h2>
+                    <div class="graph_buttons">
+                        <button onclick="update('fert_rate')">Fertility Rate</button>
+                        <button onclick="update('density')">Population Density</button>
+                        <button onclick="update('population')">Population</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column3">
+                <article class="dv_article">
+                    <p>
+                        These alarming statistics hide a more complex reality, and some positive trends. For the past few decades 
+                        population growth rate has been slowing down among 10 most populous countries and the rest of the world. 
+                        Pakistan and Nigeria are outliers, for which fertility rates are above replacement level and rest have hit 
+                        the replacement level. Hence proving fertility rate plays an important role among all 
+                        social and economical indicators in slowing down population growth.
+                    </p>
+                    <p>
+                        As in much of the rest of the world, India has shown a positive trend in the current decade and it is expected 
+                        to hit replacement fertility level by 2021. But behind that statistic lies more complex reality. 
+                    </p>
+                    <p>
+                        Chart 1 animates and depicts population, population density and fertility rates for ten most populous countries of the world. 
+                        Chart 2 on the other hand shows population growth rate for these countries from 1960.
+                    </p>
+                </article>
+            </div>
+            <div class="column4">
+                <h2 class="graph_header">Population growth rate</h2>
+                <div id="scene_1_dv2"></div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h4>Reference - </h4>
+            <h4>Data Curtacy - </h4>
+            <h4>by Rajlakshman Kulkarni</h4>
+        </div>
+    </body>
+    <script>
+        // set the dimensions and margins of the graph
+        var dv1_margin = {top: 20, right: 30, bottom: 80, left: 100},
+        dv1_width = 550 - dv1_margin.left - dv1_margin.right,
+        dv1_height = 450 - dv1_margin.top - dv1_margin.bottom;
+
+        // append the svg object to the body of the page
+        var dv1_svg = d3.select("#scene_1_dv1")
+                    .append("svg")
+                    .attr("class","dv1 svg1")
+                    .attr("width", dv1_width + dv1_margin.left + dv1_margin.right)
+                    .attr("height", dv1_height + dv1_margin.top + dv1_margin.bottom)
+                    .append("g")
+                    .attr("class","dv1 svg1 Group1")
+                    .attr("transform","translate(" + dv1_margin.left + "," + dv1_margin.top + ")");
+
+        // Initialize the X axis
+        var dv1_x = d3.scaleBand()
+                    .range([ 0, dv1_width ])
+                    .padding(.2);
+        var dv1_xAxis = dv1_svg.append("g")
+                    .attr("class", "dv1 X-axis")
+                    .attr("transform", "translate(0," + dv1_height + ")")
+
+        // Initialize the Y axis
+        var dv1_y = d3.scaleLinear()
+                    .range([ dv1_height, 0]);
+        var dv1_yAxis = dv1_svg.append("g")
+                    .attr("class", "dv1 Y-axis")
+
+        // Color scale
+        var dv1_color = d3.scaleOrdinal(d3.schemeTableau10);
+
+        // tooltips
+        var dv1_tooltip = d3.select('#scene_1_dv1')
+                    .append('div')
+                    .attr('class', 'dv1 tooltip')
+                    .style('display', 'none');
+            
+        var selectedVar = "population"
+        // Parse the Data
+    
+        
+        update(selectedVar);
+
+        function update(selectedVar) {
+
+            d3.csv("https://raw.githubusercontent.com/rajlakshmank/rajlakshmank.github.io/master/data/top-10-countries-population-data.csv", function(dv1_data) {
+
+                console.log(dv1_data);
+                //console.log("function update - selectedVar: " + selectedVar);
+                
+                // X axis
+                dv1_x.domain(dv1_data.map(function(d) { return d.country; }))
+                dv1_xAxis
+                    .transition()
+                    .duration(1000)
+                    .call(d3.axisBottom(dv1_x))
+                    .selectAll("text")
+                    .attr("transform", "translate(-10,10)rotate(-45)")
+                    .style("text-anchor", "end")
+                    .style("font-size", 14)
+                    //.style("fill", "black")
+
+                // Add Y axis
+                dv1_y.domain([0, d3.max(dv1_data, function(d) { return +d[selectedVar] }) ]);
+                dv1_yAxis
+                    .transition()
+                    .duration(1000)
+                    .call(d3.axisLeft(dv1_y))
+                    .selectAll("text")
+                    .style("text-anchor", "end")
+                    .style("font-size", 14)
+                    //.style("fill", "#69a3b2");
+
+
+                //color.domain([d3.min(data, function(d) { return +d[selectedVar] }), d3.max(data, function(d) { return +d[selectedVar] })]);
+                //Bind data to non existant rectangles
+                var dv1_bars = dv1_svg.selectAll("rect")
+                    .data(dv1_data)
+                    
+                    dv1_bars
+                    .enter()
+                    .append("rect")
+                    .attr("class", "dv1 bar rect")
+                    .attr("x", function(d) { return dv1_x(d.country); })
+                    .attr("y", function(d) { return dv1_y(d[selectedVar]); })
+                    .attr("width", dv1_x.bandwidth())
+                    .attr("height", function(d) { return dv1_height - dv1_y(d[selectedVar]); })
+                    //.attr("fill", "#69b3a2")
+                    .attr("fill", function(d) { return dv1_color(d.country); })
+                    .on("mouseover", dv1_onMouseOver)
+                    .on("mouseout", dv1_OnMouseOut)
+
+                dv1_bars
+                    .transition()
+                    .duration(1000)
+                    .attr("x", function(d) { return dv1_x(d.country); })
+                    .attr("y", function(d) { return dv1_y(d[selectedVar]); })
+                    .attr("width", dv1_x.bandwidth())
+                    .attr("height", function(d) { return dv1_height - dv1_y(d[selectedVar]); })
+                    //.attr("fill", "#69b3a2")
+                    .attr("fill", function(d) { return dv1_color(d.country); })
+
+                function dv1_onMouseOver() {
+                    //console.log("Mouse Over - selectedVar: " + selectedVar);
+                    d3.select(this).attr("fill", "gray");
+                    var d = d3.select(this).data()[0]
+                    dv1_tooltip
+                        .style('display', 'inline')
+                        .html(d.country + '<hr/>' + d[selectedVar])
+                        .style('left', (d3.event.pageX - 34) + 'px')
+                        .style('top', (d3.event.pageY - 12) + 'px');
+                }
+                function dv1_OnMouseOut() {
+                    d3.select(this).attr("fill", function(d) { return dv1_color(d.country); });
+                    dv1_tooltip.style('display', 'none');
+                    
+                }
+                
+            })
+        
+        }
+
+        
+
+    </script>
+    <script>
+
+        // set the dimensions and margins of the graph
+        var dv2_margin = {top: 20, right: 30, bottom: 30, left: 100},
+            dv2_width = 550 - dv2_margin.left - dv2_margin.right,
+            dv2_height = 450 - dv2_margin.top - dv2_margin.bottom;
+        
+        // append the svg object to the body of the page
+        var dv2_svg = d3.select("#scene_1_dv2")
+                    .append("svg")
+                    .attr("class","dv2 svg1")
+                    .attr("width", dv2_width + dv2_margin.left + dv2_margin.right)
+                    .attr("height", dv2_height + dv2_margin.top + dv2_margin.bottom)
+                    .append("g")
+                    .attr("class","dv2 svg1 group1")
+                    .attr("transform","translate(" + dv2_margin.left + "," + dv2_margin.top + ")");
+        
+        //Read the data
+        d3.csv("https://raw.githubusercontent.com/rajlakshmank/rajlakshmank.github.io/master/data/top-10-countries-population-growth-data.csv", function(dv2_data) {
+        
+            console.log(dv2_data);
+            // group the data: I want to draw one line per group
+            var dv2_sumstat = d3.nest() // nest function allows to group the calculation per level of a factor
+                            .key(function(d) { return d.country;})
+                            .entries(dv2_data);
+        
+            // Add X axis --> it is a date format
+            var dv2_x = d3.scaleLinear()
+                    .domain(d3.extent(dv2_data, function(d) { return d.year; }))
+                    .range([ 0, dv2_width ]);
+                
+            dv2_svg
+                .append("g")
+                .attr("class","dv2 X-axis")
+                .attr("transform", "translate(0," + dv2_height + ")")
+                .call(d3.axisBottom(dv2_x).ticks(5));
+        
+            // Add Y axis
+            var dv2_y = d3.scaleLinear()
+                    .domain([d3.min(dv2_data, function(d) { return +d.population_growth_rate; })-1, d3.max(dv2_data, function(d) { return +d.population_growth_rate; })])
+                    .range([ dv2_height, 0 ]);
+            dv2_svg
+                .append("g")
+                .attr("class","dv2 Y-axis")
+                .call(d3.axisLeft(dv2_y));
+        
+            // color palette
+            var dv2_res = dv2_sumstat.map(function(d){ return d.key }) // list of group names
+            /*
+            var color = d3.scaleOrdinal()
+                .domain(res)
+                .range(['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf','#999999'])
+            */
+            var dv2_color = d3.scaleOrdinal(d3.schemeTableau10);
+            // Draw the line
+            dv2_svg
+                .selectAll(".line")
+                .data(dv2_sumstat)
+                .enter()
+                .append("path")
+                .attr("class","dv2 graph line")
+                .attr("fill", "none")
+                .attr("stroke", function(d){ return dv2_color(d.key) })
+                .attr("stroke-width", 3)
+                .attr("d", function(d){
+                  return d3.line()
+                    .x(function(d) { return dv2_x(d.year); })
+                    .y(function(d) { return dv2_y(+d.population_growth_rate); })
+                    (d.values)
+                })
+        
+        })
+        
+    </script>
+</html>
