@@ -30,9 +30,9 @@
         </div>
 
         <div class="row">
-            <div class="column">
-                <article>
-                    <h2>Column 1</h2>
+            <div class="column1">
+                <article class="dv_article">
+                    <h3>A nation with diversity in every state</h3>
                     <p>
                         India as a nation has 29 states and 7 union territories. Its culture is among the world's oldest. Today, As 
                         diverse country every state has its own distinct culture, language, religion and food habits. 
@@ -51,28 +51,17 @@
                     </p>
                 </article> 
             </div>
-            <div class="column">
-                <article>
-                    <h2>Column 2</h2>
-                    <p>Some text..</p>
-                    <div id="scene_2_dataviz"></div>
-                </article> 
+            <div class="column2">
+                    <div id="scene_2_dataviz">
+                        <h2 class="graph_header">Decadal Population Growth Rate <br>For EAG States, Non-EAG States And India</h2>
+                    </div>
             </div>
         </div>
 
-        <div class="row">
-            <div class="column">
-                <article>
-                    <h2>Column 3</h2>
-                    <p>Some text..</p>
-                </article> 
-            </div>
-            <div class="column">
-                <article>
-                    <h2>Column 4</h2>
-                    <p>Some text..</p>
-                </article> 
-            </div>
+        <div class="navbar">
+            <a href="file:///Users/rajkulkarni/Documents/GitHub/rajlakshmank.github.io/dv_slide3.html" class="right">Next &raquo;</a>
+            <a href="file:///Users/rajkulkarni/Documents/GitHub/rajlakshmank.github.io/dv_slide1.html" class="right">&laquo; Previous</a>
+            <a href="file:///Users/rajkulkarni/Documents/GitHub/rajlakshmank.github.io/dv_slide1.html" class="right">Home</a>
         </div>
 
         <div class="footer">
@@ -81,9 +70,9 @@
     </body>
     <script>
         // set the dimensions and margins of the graph
-        var margin = {top: 70, right: 100, bottom: 70, left: 70},
-        width = 600 - margin.left - margin.right,
-        height = 600 - margin.top - margin.bottom;
+        var margin = {top: 60, right: 80, bottom: 80, left: 70},
+        width = 550 - margin.left - margin.right,
+        height = 450 - margin.top - margin.bottom;
 
         // append the svg object to the body of the page
         var svg = d3.select("#scene_2_dataviz")
@@ -118,7 +107,7 @@
             // A color scale: one color for each group
             var myColor = d3.scaleOrdinal()
                             .domain(allGroup)
-                            .range(d3.schemeSet2);
+                            .range(d3.schemeTableau10);
 
             // Add X axis --> it is a date format
             var x = d3.scaleLinear()
@@ -130,14 +119,12 @@
                 .call(d3.axisBottom(x))
                 .selectAll("text")
                 .attr("transform", "translate(-10,10)rotate(-45)")
-                .style("text-anchor", "end")
-                .style("font-size", 10)
-                .style("fill", "#69a3b2")
+                .attr("class","graph_axis_text")
 
             //X axis title
             svg
                 .append("text")
-                .attr("text-anchor", "end")
+                .attr("class","graph_axis_title")
                 .attr("x", width/2)
                 .attr("y", height + margin.bottom -10)
                 .text("Year");
@@ -148,12 +135,14 @@
                     .range([ height, 0 ]);
             svg
                 .append("g")
-                .call(d3.axisLeft(y));
+                .call(d3.axisLeft(y))
+                .selectAll("text")
+                .attr("class","graph_axis_text")
 
             //Y axis title
             svg
                 .append("text")
-                .attr("text-anchor", "end")
+                .attr("class","graph_axis_title")
                 .attr("transform", "rotate(-90)")
                 .attr("y", -margin.left+30)
                 .attr("x", -margin.top-60)
