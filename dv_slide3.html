@@ -29,9 +29,9 @@
           </div>
 
         <div class="row">
-            <div class="column">
-                <article>
-                    <h2>Column 2</h2>
+            <div class="column1">
+                <article class="dv_article">
+                    <h3>A nation with diversity in every state</h3>
                     <p>
                         One can not deny correlation between education and family planning. Countries in which couples are educated 
                         typically have smaller families. Yet cultural norms play significant roles as well. EAG states with a 3500 
@@ -50,31 +50,20 @@
                     </p>
                 </article> 
             </div>
-            <div class="column">
-                <article>
-                    <h2>Column 2</h2>
-                    <p>Some text..</p>
-                    <button onclick="update(2001)">1991 to 2001</button>
-                    <button onclick="update(2011)">2001 to 2011</button>
-                    <button onclick="update(2020)">2011 to 2020</button>
-                    <div id="scene_3_dataviz"></div>
-                </article> 
+            <div class="column2">
+                <h2 class="graph_header">Decadal Population Growth Rate <br>For EAG States, Non-EAG States And India</h2>
+                <div class="graph_buttons">
+                    <button class="button" onclick="update(2001)">2001</button>
+                    <button class="button" onclick="update(2011)">2011</button>
+                    <button class="button" onclick="update(2020)">2020</button>
+                </div>
+                <div id="scene_3_dataviz"></div>      
             </div>
         </div>
 
-        <div class="row">
-            <div class="column">
-                <article>
-                    <h2>Column 2</h2>
-                    <p>Some text..</p>
-                </article> 
-            </div>
-            <div class="column">
-                <article>
-                    <h2>Column 2</h2>
-                    <p>Some text..</p>
-                </article> 
-            </div>
+        <div class="navbar">
+            <a href="file:///Users/rajkulkarni/Documents/GitHub/rajlakshmank.github.io/dv_slide2.html" class="right">&laquo; Previous</a>
+            <a href="file:///Users/rajkulkarni/Documents/GitHub/rajlakshmank.github.io/dv_slide1.html" class="right">Home</a>
         </div>
 
         <div class="footer">
@@ -83,7 +72,7 @@
     </body>
     <script>
         // set the dimensions and margins of the graph
-        var margin = {top: 50, right: 30, bottom: 50, left: 50},
+        var margin = {top: 50, right: 30, bottom: 50, left: 60},
         width = 460 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
 
@@ -107,12 +96,13 @@
             .append("g")
             .attr("class","X Axis Group")
             .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
+            .call(d3.axisBottom(x))
+            .attr("class","graph_axis_text");
 
         //X axis title
         svg
             .append("text")
-            .attr("text-anchor", "end")
+            .attr("class","graph_axis_title")
             .attr("x", width-130)
             .attr("y", height + margin.bottom -10)
             .text("Fertility Rate");
@@ -124,12 +114,14 @@
         svg
             .append("g")
             .attr("class","Y Axis Group")
-            .call(d3.axisLeft(y));
+            .call(d3.axisLeft(y))
+            .selectAll("text")
+            .attr("class","graph_axis_text")
         
         //Y axis title
         svg
             .append("text")
-            .attr("text-anchor", "end")
+            .attr("class","graph_axis_title")
             .attr("transform", "rotate(-90)")
             .attr("y", -margin.left+20)
             .attr("x", -margin.top-60)
@@ -140,15 +132,15 @@
         // Color scale
         var color = d3.scaleOrdinal()
                     .domain(["Country", "EAG", "Non-EAG" ])
-                    .range([ "#440154ff", "#21908dff", "#fde725ff"])
+                    .range(d3.schemeDark2)
         
         var legend_x = 280
         var legend_y = 10
         var legend_w = 12
         // legend
-        svg.append("rect").attr("x",legend_x).attr("y",legend_y).attr("width", legend_w).attr("height", legend_w).style("fill", "#440154ff")
-        svg.append("rect").attr("x",legend_x).attr("y",legend_y + 30).attr("width", legend_w).attr("height", legend_w).style("fill", "#21908dff")
-        svg.append("rect").attr("x",legend_x).attr("y",legend_y + 60).attr("width", legend_w).attr("height", legend_w).style("fill", "#fde725ff")
+        svg.append("rect").attr("x",legend_x).attr("y",legend_y).attr("width", legend_w).attr("height", legend_w).style("fill", "rgb(27, 151, 58)")
+        svg.append("rect").attr("x",legend_x).attr("y",legend_y + 30).attr("width", legend_w).attr("height", legend_w).style("fill", "rgb(217, 95, 2)")
+        svg.append("rect").attr("x",legend_x).attr("y",legend_y + 60).attr("width", legend_w).attr("height", legend_w).style("fill", "rgb(54, 87, 179)")
         svg.append("text").attr("x", legend_x + 20).attr("y", legend_y + 5).text("India").style("font-size", "15px").attr("alignment-baseline","middle")
         svg.append("text").attr("x", legend_x + 20).attr("y", legend_y + 35).text("EAG States").style("font-size", "15px").attr("alignment-baseline","middle")
         svg.append("text").attr("x", legend_x + 20).attr("y", legend_y + 65).text("Non-EAG States").style("font-size", "15px").attr("alignment-baseline","middle")
