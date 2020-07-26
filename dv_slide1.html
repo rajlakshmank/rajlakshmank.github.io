@@ -99,7 +99,7 @@
     </body>
     <script>
         // set the dimensions and margins of the graph
-        var dv1_margin = {top: 20, right: 30, bottom: 80, left: 100},
+        var dv1_margin = {top: 20, right: 30, bottom: 80, left: 70},
         dv1_width = 550 - dv1_margin.left - dv1_margin.right,
         dv1_height = 450 - dv1_margin.top - dv1_margin.bottom;
 
@@ -227,7 +227,7 @@
     <script>
 
         // set the dimensions and margins of the graph
-        var dv2_margin = {top: 20, right: 30, bottom: 30, left: 100},
+        var dv2_margin = {top: 20, right: 30, bottom: 30, left: 70},
             dv2_width = 550 - dv2_margin.left - dv2_margin.right,
             dv2_height = 450 - dv2_margin.top - dv2_margin.bottom;
         
@@ -263,7 +263,7 @@
         
             // Add Y axis
             var dv2_y = d3.scaleLinear()
-                    .domain([d3.min(dv2_data, function(d) { return +d.population_growth_rate; })-1, d3.max(dv2_data, function(d) { return +d.population_growth_rate; })])
+                    .domain([d3.min(dv2_data, function(d) { return +d.population_growth_rate; })-0.5, d3.max(dv2_data, function(d) { return +d.population_growth_rate; })])
                     .range([ dv2_height, 0 ]);
             dv2_svg
                 .append("g")
