@@ -1,0 +1,222 @@
+<html lang="en">
+    <head>
+        <title>DV Slide 3</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <!-- Load d3.js -->
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+        <!-- Load stylesheets -->
+        <link rel='stylesheet' type='text/css' href='./stylesheets/page-style.css'>
+
+        <style>
+            /* Page Content */
+            .content {padding:20px;}
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Is India Slowing Its Population Growth?</h1>
+            <p class="header-text-footer-1">Data Visualization Aassignment - UIUC - MSDS</p>
+            <p class="header-text-footer-2">by Rajlakshman Kulkarni</p>
+        </div>
+
+        <div class="navbar">
+            <a href="file:///Users/rajkulkarni/Documents/GitHub/rajlakshmank.github.io/dv_slide2.html" class="right">&laquo; Previous</a>
+            <a href="file:///Users/rajkulkarni/Documents/GitHub/rajlakshmank.github.io/dv_slide1.html" class="right">Home</a>
+          </div>
+
+        <div class="row">
+            <div class="column">
+                <article>
+                    <h2>Column 2</h2>
+                    <p>
+                        One can not deny correlation between education and family planning. Countries in which couples are educated 
+                        typically have smaller families. Yet cultural norms play significant roles as well. EAG states with a 3500 
+                        year old culture and low literacy rate are facing complex challenges in narrowing population growth with 
+                        other states. These EAG states have had a low literacy rate and high fertility rate for the past 3 decades. 
+                        Even though they are showing positive trends but far behind other states. 
+                    </p>
+                    <p>
+                        Chart below depicts the correlation between fertility rate and literacy rate for all indian states.
+                    </p>
+                    <p> 
+                        Though on the world stage India is showing promising results, the need of the hour is to focus more on 
+                        EAG states in elevating women's education and diversifying its investments in family planning. 
+                        A complex issue related to local culture, society and politics needs better innovative ideas every 
+                        decade or even more frequently.
+                    </p>
+                </article> 
+            </div>
+            <div class="column">
+                <article>
+                    <h2>Column 2</h2>
+                    <p>Some text..</p>
+                    <button onclick="update(2001)">1991 to 2001</button>
+                    <button onclick="update(2011)">2001 to 2011</button>
+                    <button onclick="update(2020)">2011 to 2020</button>
+                    <div id="scene_3_dataviz"></div>
+                </article> 
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="column">
+                <article>
+                    <h2>Column 2</h2>
+                    <p>Some text..</p>
+                </article> 
+            </div>
+            <div class="column">
+                <article>
+                    <h2>Column 2</h2>
+                    <p>Some text..</p>
+                </article> 
+            </div>
+        </div>
+
+        <div class="footer">
+            <h2>Footer</h2>
+        </div>
+    </body>
+    <script>
+        // set the dimensions and margins of the graph
+        var margin = {top: 50, right: 30, bottom: 50, left: 50},
+        width = 460 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
+
+        // append the svg object to the body of the page
+        var svg = d3.select("#scene_3_dataviz")
+                    .append("svg")
+                    .attr("class","svg 1")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("class","svg Group")
+                    .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
+        //Graph Title
+        
+        //Add X axis
+        var x = d3.scaleLinear()
+                .domain([1, 4.5])
+                .range([ 0, width ]);
+        svg
+            .append("g")
+            .attr("class","X Axis Group")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+
+        //X axis title
+        svg
+            .append("text")
+            .attr("text-anchor", "end")
+            .attr("x", width-130)
+            .attr("y", height + margin.bottom -10)
+            .text("Fertility Rate");
+
+        // Add Y axis
+        var y = d3.scaleLinear()
+                .domain([40, 100])
+                .range([ height, 0]);
+        svg
+            .append("g")
+            .attr("class","Y Axis Group")
+            .call(d3.axisLeft(y));
+        
+        //Y axis title
+        svg
+            .append("text")
+            .attr("text-anchor", "end")
+            .attr("transform", "rotate(-90)")
+            .attr("y", -margin.left+20)
+            .attr("x", -margin.top-60)
+            .text("% Litracy Rate");
+
+        
+        
+        // Color scale
+        var color = d3.scaleOrdinal()
+                    .domain(["Country", "EAG", "Non-EAG" ])
+                    .range([ "#440154ff", "#21908dff", "#fde725ff"])
+        
+        var legend_x = 280
+        var legend_y = 10
+        var legend_w = 12
+        // legend
+        svg.append("rect").attr("x",legend_x).attr("y",legend_y).attr("width", legend_w).attr("height", legend_w).style("fill", "#440154ff")
+        svg.append("rect").attr("x",legend_x).attr("y",legend_y + 30).attr("width", legend_w).attr("height", legend_w).style("fill", "#21908dff")
+        svg.append("rect").attr("x",legend_x).attr("y",legend_y + 60).attr("width", legend_w).attr("height", legend_w).style("fill", "#fde725ff")
+        svg.append("text").attr("x", legend_x + 20).attr("y", legend_y + 5).text("India").style("font-size", "15px").attr("alignment-baseline","middle")
+        svg.append("text").attr("x", legend_x + 20).attr("y", legend_y + 35).text("EAG States").style("font-size", "15px").attr("alignment-baseline","middle")
+        svg.append("text").attr("x", legend_x + 20).attr("y", legend_y + 65).text("Non-EAG States").style("font-size", "15px").attr("alignment-baseline","middle")
+
+        //Read the data
+        var data_url = "https://raw.githubusercontent.com/rajlakshmank/rajlakshmank.github.io/master/data/India-StateWise-Pop-Growth.csv"
+
+        function update(selected_year) {
+            d3.csv(data_url, function(data) {
+
+                //Filter data by year
+                var data_filtered = data.filter(function(d){ return +d.year == selected_year });
+                console.log(data_filtered);
+
+                // Highlight the zone that is hovered
+                var highlight = function(d){
+                    selected_zone = d.category
+                    //console.log("selectect dot category: "+ selected_zone);
+                    d3
+                        .selectAll("circle")
+                        .transition()
+                        .duration(200)
+                        .style("fill", "lightgrey")
+                        .attr("r", 3)
+
+                    d3
+                        .selectAll("." + selected_zone)
+                        .transition()
+                        .duration(200)
+                        .style("fill", color(selected_zone))
+                        .attr("r", 7)
+                }
+
+                // color the zone that is NOT hovered
+                var doNotHighlight = function(){
+                    d3
+                        .selectAll("circle")
+                        .transition()
+                        .duration(200)
+                        .style("fill", function (d) { return color(d.category) } )
+                        .attr("r", 5 )
+                }
+
+                var dots = svg.selectAll("circle")
+                            .data(data_filtered)
+                
+                dots
+                    .enter()
+                    .append("circle")
+                    .attr("class", function (d) { return "dot " + d.category } )
+                    //.attr("class", "dot circle")
+                    .attr("cx", function (d) { return x(+d.fert_rate); } )
+                    .attr("cy", function (d) { return y(+d.lit_rate); } )
+                    .attr("r", 5)
+                    .style("fill", function (d) { return color(d.category) } )
+                    .on("mouseover", highlight)
+                    .on("mouseleave", doNotHighlight )
+
+                dots
+                    .transition()
+                    .duration(1000)
+                    .attr("cx", function (d) { return x(+d.fert_rate); } )
+                    .attr("cy", function (d) { return y(+d.lit_rate); } )
+                    .attr("r", 5)
+                    .style("fill", function (d) { return color(d.category) } )
+
+            })
+        }
+        update(2001);
+    </script>
+</html>
