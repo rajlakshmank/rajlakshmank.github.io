@@ -8,6 +8,9 @@
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
+        <!-- Load d3-annotation -->
+        <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+
         <!-- Load stylesheets -->
         <link rel='stylesheet' type='text/css' href='./stylesheets/page-style.css'>
 
@@ -106,12 +109,14 @@
         // append the svg object to the body of the page
         var dv1_svg = d3.select("#scene_1_dv1")
                     .append("svg")
-                    .attr("class","dv1 svg1")
+                    .attr("class","dv1-svg1")
                     .attr("width", dv1_width + dv1_margin.left + dv1_margin.right)
                     .attr("height", dv1_height + dv1_margin.top + dv1_margin.bottom)
                     .append("g")
                     .attr("class","dv1 svg1 Group1")
                     .attr("transform","translate(" + dv1_margin.left + "," + dv1_margin.top + ")");
+
+        
 
         // Initialize the X axis
         var dv1_x = d3.scaleBand()
@@ -137,13 +142,14 @@
                     .style('display', 'none');
             
         var selectedVar = "pop_in_b"
-        // Parse the Data
     
         var dv1_url = "https://raw.githubusercontent.com/rajlakshmank/rajlakshmank.github.io/master/data/top-10-countries-population-data.csv"
         
         update(selectedVar);
 
         function update(selectedVar) {
+
+            dv1_annotations(selectedVar);
 
             d3.csv(dv1_url, function(dv1_data) {
 
@@ -240,6 +246,147 @@
         
         }
 
+        function dv1_annotations(selectedVar) {
+            d3.select(".dv1-svg1").selectAll(".ant-group").remove()
+             // Graph1 annotations
+            const annotation_1 = [
+                {
+                    note: {
+                        label: "2nd most populous country",
+                        title: "India",
+                        wrap: 150
+                    },
+                    color: ["red"],
+                    x: 140,
+                    y: 80,
+                    dy: 50,
+                    dx: 70
+                }
+            ]
+
+            const annotation_2 = [
+                {
+                    note: {
+                        label: "Contries with high population density",
+                        title: "India & Bangladesh",
+                        wrap: 150
+                    },
+                    color: ["red"],
+                    x: 140,
+                    y: 270,
+                    dy: -180,
+                    dx: 50
+                }
+            ]
+
+            const annotation_3 = [
+                {
+                    note: {
+                        label: "",
+                        title: "",
+                        wrap: 150
+                    },
+                    color: ["red"],
+                    x: 410,
+                    y: 170,
+                    dy: -80,
+                    dx: -72
+                }
+            ]
+
+            const annotation_4 = [
+                {
+                    note: {
+                        label: "Countries with higher fertility rate",
+                        title: "Pakistan & Nigeria",
+                        wrap: 150
+                    },
+                    color: ["red"],
+                    x: 270,
+                    y: 180,
+                    dy: -40,
+                    dx: 120
+                }
+            ]
+
+            const annotation_5 = [
+                {
+                    note: {
+                        label: "",
+                        title: "",
+                        wrap: 150
+                    },
+                    color: ["red"],
+                    x: 350,
+                    y: 180,
+                    dy: -40,
+                    dx: 120
+                }
+            ]
+
+            const annotation_6 = [
+                {
+                    note: {
+                        label: "Closer to replacement fertility rate",
+                        title: "India",
+                        wrap: 150
+                    },
+                    x: 140,
+                    y: 240,
+                    dy: -120,
+                    dx: 30
+                }
+            ]
+
+            // Add annotation to the chart
+            if (selectedVar == "pop_in_b") {
+                const makeAnnotations1 = d3.annotation().annotations(annotation_1);
+                d3
+                    .select(".dv1-svg1")
+                    .append("g")
+                    .attr("class","ant-group")
+                    .call(makeAnnotations1);
+            }
+            else if (selectedVar == "density") {
+                const makeAnnotations2 = d3.annotation().annotations(annotation_2);
+                d3
+                    .select(".dv1-svg1")
+                    .append("g")
+                    .attr("class","ant-group")
+                    .call(makeAnnotations2);
+                
+                const makeAnnotations3 = d3.annotation().annotations(annotation_3);
+                d3
+                    .select(".dv1-svg1")
+                    .append("g")
+                    .attr("class","ant-group")
+                    .call(makeAnnotations3);
+            }
+            else {
+                const makeAnnotations4 = d3.annotation().annotations(annotation_4);
+                d3
+                    .select(".dv1-svg1")
+                    .append("g")
+                    .attr("class","ant-group")
+                    .call(makeAnnotations4);
+
+                const makeAnnotations5 = d3.annotation().annotations(annotation_5);
+                d3
+                    .select(".dv1-svg1")
+                    .append("g")
+                    .attr("class","ant-group")
+                    .call(makeAnnotations5);
+
+                const makeAnnotations6 = d3.annotation().annotations(annotation_6);
+                d3
+                    .select(".dv1-svg1")
+                    .append("g")
+                    .attr("class","ant-group")
+                    .call(makeAnnotations6);
+            }
+            
+        }
+
         
 
     </script>
@@ -247,9 +394,9 @@
 
 
         // set the dimensions and margins of the graph
-        var dv2_margin = {top: 20, right: 30, bottom: 40, left: 70},
+        var dv2_margin = {top: 40, right: 30, bottom: 40, left: 70},
             dv2_width = 550 - dv2_margin.left - dv2_margin.right,
-            dv2_height = 450 - dv2_margin.top - dv2_margin.bottom;
+            dv2_height = 550 - dv2_margin.top - dv2_margin.bottom;
         
         playLineChart();
 
@@ -259,12 +406,14 @@
             d3.select("#scene_1_dv2").selectAll("*").remove()
             var dv2_svg = d3.select("#scene_1_dv2")
                         .append("svg")
-                        .attr("class","dv2 svg1")
+                        .attr("class","dv2-svg1")
                         .attr("width", dv2_width + dv2_margin.left + dv2_margin.right)
                         .attr("height", dv2_height + dv2_margin.top + dv2_margin.bottom)
                         .append("g")
                         .attr("class","dv2 svg1 group1")
                         .attr("transform","translate(" + dv2_margin.left + "," + dv2_margin.top + ")");
+            
+            dv2_annotations();
 
             var dv2_url = "https://raw.githubusercontent.com/rajlakshmank/rajlakshmank.github.io/master/data/top-10-countries-population-growth-data.csv"
             //Read the data
@@ -299,7 +448,7 @@
             
                 // Add Y axis
                 var dv2_y = d3.scaleLinear()
-                        .domain([d3.min(dv2_data, function(d) { return +d.population_growth_rate; })-0.5, d3.max(dv2_data, function(d) { return +d.population_growth_rate; })])
+                        .domain([d3.min(dv2_data, function(d) { return +d.population_growth_rate; })-1, d3.max(dv2_data, function(d) { return +d.population_growth_rate; })])
                         .range([ dv2_height, 0 ]);
                 dv2_svg
                     .append("g")
@@ -355,6 +504,66 @@
             
             })
         }
+
+        function dv2_annotations() {
+            d3.select(".dv2-svg1").selectAll(".ant-group").remove()
+             // Graph1 annotations
+            const annotation_1 = [
+                {
+                    note: {
+                        label: "Growth decline is slower then rest",
+                        title: "Pakistan & Nigeria",
+                        wrap: 250
+                    },
+                    type: d3.annotationCalloutCircle,
+                    subject: {
+                        radius: 40,         // circle radius
+                        radiusPadding: 20   // white space around circle befor connector
+                    },
+                    color: ["red"],
+                    x: 510,
+                    y: 150,
+                    dy: -90,
+                    dx: -50
+                }
+            ]
+
+            const annotation_2 = [
+                {
+                    note: {
+                        label: "Countries showing promissing growth decline, whihch includes India",
+                        title: "",
+                        wrap: 250
+                    },
+                    type: d3.annotationCalloutRect,
+                    subject: {
+                        width: 10,         // circle radius
+                        height: 140   // white space around circle befor connector
+                    },
+                    color: ["green"],
+                    x: 515,
+                    y: 250,
+                    dy: 180,
+                    dx: -100
+                }
+            ]
+
+            const makeAnnotations1 = d3.annotation().annotations(annotation_1);
+                d3
+                    .select(".dv2-svg1")
+                    .append("g")
+                    .attr("class","ant-group")
+                    .call(makeAnnotations1);
+
+            const makeAnnotations2 = d3.annotation().annotations(annotation_2);
+                d3
+                    .select(".dv2-svg1")
+                    .append("g")
+                    .attr("class","ant-group")
+                    .call(makeAnnotations2);
+            
+        }
+
         
     </script>
 </html>
