@@ -1,3 +1,7 @@
+.content {
+    padding: 20px;
+}
+
 body {
     font-family: Arial;
     margin: 0;
@@ -57,19 +61,7 @@ body {
     box-sizing: border-box;
 }
 
-/* Create two equal columns that floats next to each other 
 .column {
-    float: left;
-    width: 50%;
-    padding: 10px;
-    background-color: rgb(255, 255, 255);
-    text-align: left;
-    font-family: "Droid Serif", serif;
-    padding: 40;
-}
-*/
-
-.column1 {
     /*.column1 .column2 .column3 .column4 {*/
         float: left;
         width: 50%;
@@ -77,35 +69,7 @@ body {
         padding: 40 40 10 40;
         /*height: 300px;  Should be removed. Only for demonstration */
 }
-
-.column2 {
-    /*.column1 .column2 .column3 .column4 {*/
-        float: left;
-        width: 50%;
-        background-color: rgb(255, 255, 255);
-        padding: 40 40 10 40;
-        /*height: 300px;  Should be removed. Only for demonstration */
-}
-
-
-.column3 {
-    /*.column1 .column2 .column3 .column4 {*/
-        float: left;
-        width: 50%;
-        background-color: rgb(255, 255, 255);
-        padding: 10 40 40 40;
-        /*height: 300px;  Should be removed. Only for demonstration */
-}
-
-.column4 {
-    /*.column1 .column2 .column3 .column4 {*/
-        float: left;
-        width: 50%;
-        background-color: rgb(255, 255, 255);
-        padding: 10 40 40 40;
-        /*height: 300px;  Should be removed. Only for demonstration */
-}
-  
+ 
 /* Clear floats after the columns */
 .row:after {
     content: "";
@@ -129,7 +93,8 @@ body {
     /*display: inline-block;*/
     width: 150px;
     padding: 5px 5px;
-    background-color: #4CAF50;
+    background-color: #99d39b;
+    opacity: 0.9;
     color: black;
     border: none;
     border-radius: 4px;
@@ -207,4 +172,32 @@ body {
       to {
           stroke-dashoffset: 0;
       }
+  }
+
+  .annotation-rect {
+    stroke: rgb(83, 28, 12);
+    fill-opacity: 10%;
+    fill: black;
+  }
+
+  .annotation-text {
+    fill: rgb(83, 28, 12);
+    font-size: 14;
+  }
+
+  .annotation-text-title {
+    fill: rgb(83, 28, 12);
+    font-size: 18;
+    font-weight: bold;
+  }
+
+  .annotation-path {
+      stroke: rgb(83, 28, 12);
+      fill: none;
+  }
+
+  .annotation-circle {
+    stroke: rgb(83, 28, 12);
+    fill-opacity: 10%;
+    fill: none;
   }

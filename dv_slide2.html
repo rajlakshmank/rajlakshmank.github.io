@@ -10,11 +10,6 @@
 
         <!-- Load stylesheets -->
         <link rel='stylesheet' type='text/css' href='./stylesheets/page-style.css'>
-
-        <style>
-            /* Page Content */
-            .content {padding:20px;}
-        </style>
     </head>
     <body>
         <div class="header">
@@ -30,7 +25,7 @@
         </div>
 
         <div class="row">
-            <div class="column1">
+            <div class="column">
                 <article class="dv_article">
                     <h3>A nation with diversity in every state</h3>
                     <p>
@@ -51,7 +46,7 @@
                     </p>
                 </article> 
             </div>
-            <div class="column2">
+            <div class="column">
                     <div id="scene_2_dataviz">
                         <h2 class="graph_header">Decadal Population Growth Rate <br>For EAG States, Non-EAG States And India</h2>
                     </div>
@@ -65,25 +60,28 @@
         </div>
 
         <div class="footer">
-            <h2>Footer</h2>
+            <h4>Reference - https://e360.yale.edu/features/why-india-is-making-progress-in-slowing-its-population-growth </h4>
+            <h4>Data Curtacy - https://data.worldbank.org </h4>
+            <h4>DataViz by Rajlakshman Kulkarni</h4>
         </div>
     </body>
     <script>
         // set the dimensions and margins of the graph
-        var margin = {top: 60, right: 80, bottom: 80, left: 70},
+        var margin = {top: 60, right: 120, bottom: 80, left: 70},
         width = 550 - margin.left - margin.right,
         height = 450 - margin.top - margin.bottom;
 
         // append the svg object to the body of the page
         var svg = d3.select("#scene_2_dataviz")
                     .append("svg")
-                    .attr("class","svg1")
+                    .attr("class","dv3-svg1")
                     .attr("width", width + margin.left + margin.right)
                     .attr("height", height + margin.top + margin.bottom)
                     .append("g")
                     .attr("class","svg1 group")
                     .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
+        dv3_annotations();
         //Read the data
         var data_url = "https://raw.githubusercontent.com/rajlakshmank/rajlakshmank.github.io/master/data/India-EAG-States-Pop-Growth.csv";
         
@@ -221,6 +219,115 @@
         })
 
         })
+
+
+        function dv3_annotations() {
+            d3.select(".dv3-svg1").select(".dv3-anntn-group").remove()
+             // Graph1 annotations
+
+            var dv3_anntn_group = d3.select(".dv3-svg1").append("g").attr("class","dv3-anntn-group");
+
+            var ant_delay = 2000;
+            
+            dv3_anntn_group
+                    .append("path")
+                    .attr("class","dv2-anntn-1-path1 annotation-path")
+                    .attr("d", "M320,80L360,70L520,70")
+                    .style("visibility","hidden")
+                    .transition()
+                    .delay(ant_delay)
+                    .style("visibility","visible")
+
+            dv3_anntn_group
+                    .append("path")
+                    .attr("class","dv2-anntn-2-path1 annotation-path")
+                    .attr("d", "M420,220L380,290L140,290")
+                    .style("visibility","hidden")
+                    .transition()
+                    .delay(ant_delay)
+                    .style("visibility","visible")
+            
+            dv3_anntn_group
+                //.select(".dv2-svg1")
+                .append("rect")
+                .attr("class","dv3-anntn-1-rect annotation-rect")
+                .attr("x",190)
+                .attr("y",80)
+                .attr("height",20)
+                .attr("width",130)
+                .style("visibility","hidden")
+                .transition()
+                .delay(ant_delay)
+                .style("visibility","visible")
+
+            dv3_anntn_group
+                //.select(".dv2-svg1")
+                .append("circle")
+                .attr("class","dv3-anntn-2-circle annotation-circle")
+                .attr("cx",430)
+                .attr("cy",210)
+                .attr("r",15)
+                .style("visibility","hidden")
+                .transition()
+                .delay(ant_delay)
+                .style("visibility","visible")
+
+            dv3_anntn_group
+                .append("text")
+                .attr("class","dv2-anntn-1-text1 annotation-text")
+                .attr("x", 360)
+                .attr("y", 20)
+                .text("Period where EAG states")
+                .style("visibility","hidden")
+                .transition()
+                .delay(ant_delay)
+                .style("visibility","visible")
+
+            dv3_anntn_group
+                .append("text")
+                .attr("class","dv2-anntn-1-text2 annotation-text")
+                .attr("x", 360)
+                .attr("y", 40)
+                .text("had unchanged ")
+                .style("visibility","hidden")
+                .transition()
+                .delay(ant_delay)
+                .style("visibility","visible")
+
+            dv3_anntn_group
+                .append("text")
+                .attr("class","dv2-anntn-1-text3 annotation-text")
+                .attr("x", 360)
+                .attr("y", 60)
+                .text("population growth rate")
+                .style("visibility","hidden")
+                .transition()
+                .delay(ant_delay)
+                .style("visibility","visible")
+            
+            dv3_anntn_group
+                .append("text")
+                .attr("class","dv2-anntn-2-text1 annotation-text")
+                .attr("x", 140)
+                .attr("y", 260)
+                .text("EAG states showing slower")
+                .style("visibility","hidden")
+                .transition()
+                .delay(ant_delay)
+                .style("visibility","visible")
+            
+            dv3_anntn_group
+                .append("text")
+                .attr("class","dv2-anntn-2-text2 annotation-text")
+                .attr("x", 140)
+                .attr("y", 280)
+                .text("decline in population growth rate")
+                .style("visibility","hidden")
+                .transition()
+                .delay(ant_delay)
+                .style("visibility","visible")
+        }
+
 
     </script>
 </html>
