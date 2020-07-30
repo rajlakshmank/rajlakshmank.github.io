@@ -6,7 +6,6 @@
         
         <!-- Load d3.js -->
         <script src="https://d3js.org/d3.v4.min.js"></script>
-        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
         <!-- Load stylesheets -->
         <link rel='stylesheet' type='text/css' href='./stylesheets/page-style.css'>
@@ -125,8 +124,8 @@
                     .attr("class", "dv1 Y-axis")
 
         // Color scale
-        var dv1_color = d3.scaleOrdinal(d3.schemeTableau10);
-
+        //var dv1_color = d3.scaleOrdinal(d3.schemeTableau10);
+        var dv1_color = d3.scaleOrdinal(["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#edc949","#af7aa1","#ff9da7","#9c755f","#bab0ab"]);
         // tooltips
         var dv1_tooltip = d3.select('#scene_1_dv1')
                     .append('div')
@@ -217,7 +216,7 @@
                     .attr("fill", function(d) { return dv1_color(d.country); })
 
                 function dv1_onMouseOver() {
-                    d3.select(this).attr("fill", "red");
+                    d3.select(this).attr("fill", "black");
                     var d = d3.select(this).data()[0]
                     dv1_tooltip
                         .style('display', 'inline')
@@ -447,6 +446,11 @@
             
             dv2_annotations();
 
+            var dv2_tooltip = d3.select('#scene_1_dv2')
+                    .append('div')
+                    .attr('class', 'dv2 tooltip')
+                    .style('display', 'none');
+
             var dv2_url = "https://raw.githubusercontent.com/rajlakshmank/rajlakshmank.github.io/master/data/top-10-countries-population-growth-data.csv"
             //Read the data
             d3.csv(dv2_url, function(dv2_data) {
@@ -505,7 +509,8 @@
                     .domain(res)
                     .range(['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf','#999999'])
                 */
-                var dv2_color = d3.scaleOrdinal(d3.schemeTableau10);
+                //var dv2_color = d3.scaleOrdinal(d3.schemeTableau10);
+                var dv2_color = d3.scaleOrdinal(["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#edc949","#af7aa1","#ff9da7","#9c755f","#bab0ab"]);
                 // Draw the line
                 dv2_svg
                     .selectAll(".line")
@@ -522,6 +527,27 @@
                         .y(function(d) { return dv2_y(+d.population_growth_rate); })
                         (d.values)
                     })
+                    .on("mouseover", dv2_onMouseOver)
+                    .on("mouseout", dv2_OnMouseOut)
+
+                function dv2_onMouseOver() {
+                    d3.select(this)
+                        .attr("stroke", "black")
+                        .attr("stroke-width", 5);
+                    var d = d3.select(this).data()[0]
+                    dv2_tooltip
+                        .style('display', 'inline')
+                        .html('Country ' + d.key)
+                        .style('left', (d3.event.pageX))
+                        .style('top', (d3.event.pageY));
+                }
+                function dv2_OnMouseOut() {
+                    d3.select(this)
+                        .attr("stroke", function(d) { return dv2_color(d.key); })
+                        .attr("stroke-width", 3);
+                    dv2_tooltip.style('display', 'none');
+                    
+                }
             
             })
         }
