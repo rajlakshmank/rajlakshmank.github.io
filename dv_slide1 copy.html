@@ -8,8 +8,16 @@
         <script src="https://d3js.org/d3.v4.min.js"></script>
         <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
+        <!-- Load d3-annotation -->
+        <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+
         <!-- Load stylesheets -->
         <link rel='stylesheet' type='text/css' href='./stylesheets/page-style.css'>
+
+        <style>
+            /* Page Content */
+            .content {padding:20px;}
+        </style>
     </head>
     <body>
         <div class="header">
@@ -87,9 +95,9 @@
         </div>
 
         <div class="footer">
-            <h4>Reference - https://e360.yale.edu/features/why-india-is-making-progress-in-slowing-its-population-growth </h4>
-            <h4>Data Curtacy - https://data.worldbank.org </h4>
-            <h4>DataViz by Rajlakshman Kulkarni</h4>
+            <h4>Reference - </h4>
+            <h4>Data Curtacy - </h4>
+            <h4>by Rajlakshman Kulkarni</h4>
         </div>
     </body>
     <script>
@@ -203,6 +211,7 @@
                     .attr("y", function(d) { return dv1_y(d[selectedVar]); })
                     .attr("width", dv1_x.bandwidth())
                     .attr("height", function(d) { return dv1_height - dv1_y(d[selectedVar]); })
+                    //.attr("fill", "#69b3a2")
                     .attr("fill", function(d) { return dv1_color(d.country); })
                     .on("mouseover", dv1_onMouseOver)
                     .on("mouseout", dv1_OnMouseOut)
@@ -214,16 +223,18 @@
                     .attr("y", function(d) { return dv1_y(d[selectedVar]); })
                     .attr("width", dv1_x.bandwidth())
                     .attr("height", function(d) { return dv1_height - dv1_y(d[selectedVar]); })
+                    //.attr("fill", "#69b3a2")
                     .attr("fill", function(d) { return dv1_color(d.country); })
 
                 function dv1_onMouseOver() {
+                    //console.log("Mouse Over - selectedVar: " + selectedVar);
                     d3.select(this).attr("fill", "red");
                     var d = d3.select(this).data()[0]
                     dv1_tooltip
                         .style('display', 'inline')
                         .html(d.country + '<hr/>' + "Population: " + d.population + '<br>' + "Density: " + d.density + '<br>' + "Fertility Rate: " + d.fert_rate + '<br>' +"Land Area: " +  d.land_area + '<br>' +"Median Age: " +  d.med_age)
-                        .style('left', (d3.event.pageX))
-                        .style('top', (d3.event.pageY));
+                        .style('left', (d3.event.pageX - 34) + 'px')
+                        .style('top', (d3.event.pageY - 12) + 'px');
                 }
                 function dv1_OnMouseOut() {
                     d3.select(this).attr("fill", function(d) { return dv1_color(d.country); });
@@ -236,190 +247,147 @@
         }
 
         function dv1_annotations(selectedVar) {
-
-            d3.select(".dv1-svg1").select(".dv1-anntn-group").remove()
-
+            d3.select(".dv1-svg1").selectAll(".ant-group").remove()
              // Graph1 annotations
-            var dv1_anntn_group = d3.select(".dv1-svg1").append("g").attr("class","dv1-anntn-group");
+            const annotation_1 = [
+                {
+                    note: {
+                        label: "2nd most populous country",
+                        title: "India",
+                        wrap: 150
+                    },
+                    color: ["red"],
+                    x: 140,
+                    y: 80,
+                    dy: 50,
+                    dx: 70
+                }
+            ]
 
-            var ant_delay = 2000;
+            const annotation_2 = [
+                {
+                    note: {
+                        label: "Contries with high population density",
+                        title: "India & Bangladesh",
+                        wrap: 150
+                    },
+                    color: ["red"],
+                    x: 140,
+                    y: 270,
+                    dy: -180,
+                    dx: 50
+                }
+            ]
+
+            const annotation_3 = [
+                {
+                    note: {
+                        label: "",
+                        title: "",
+                        wrap: 150
+                    },
+                    color: ["red"],
+                    x: 410,
+                    y: 170,
+                    dy: -80,
+                    dx: -72
+                }
+            ]
+
+            const annotation_4 = [
+                {
+                    note: {
+                        label: "Countries with higher fertility rate",
+                        title: "Pakistan & Nigeria",
+                        wrap: 150
+                    },
+                    color: ["red"],
+                    x: 270,
+                    y: 180,
+                    dy: -40,
+                    dx: 120
+                }
+            ]
+
+            const annotation_5 = [
+                {
+                    note: {
+                        label: "",
+                        title: "",
+                        wrap: 150
+                    },
+                    color: ["red"],
+                    x: 350,
+                    y: 180,
+                    dy: -40,
+                    dx: 120
+                }
+            ]
+
+            const annotation_6 = [
+                {
+                    note: {
+                        label: "Closer to replacement fertility rate",
+                        title: "India",
+                        wrap: 150
+                    },
+                    x: 140,
+                    y: 240,
+                    dy: -120,
+                    dx: 30
+                }
+            ]
+
             // Add annotation to the chart
             if (selectedVar == "pop_in_b") {
-
-                dv1_anntn_group
-                    .append("path")
-                    .attr("class","dv1-anntn-1-path1 annotation-path")
-                    .attr("d", "M150,160L240,110L420,110")
-                    .style("visibility","hidden")
-                    .transition()
-                    .delay(ant_delay)
-                    .style("visibility","visible")
-
-                dv1_anntn_group
-                    .append("text")
-                    .attr("class","dv1-anntn-1-text1 annotation-text-title")
-                    .attr("x", 240)
-                    .attr("y", 80)
-                    .text("India")
-                    .style("visibility","hidden")
-                    .transition()
-                    .delay(ant_delay)
-                    .style("visibility","visible")
-                
-                dv1_anntn_group
-                    .append("text")
-                    .attr("class","dv1-anntn-1-text2 annotation-text")
-                    .attr("x", 240)
-                    .attr("y", 100)
-                    .text("2nd most populous contry")
-                    .style("visibility","hidden")
-                    .transition()
-                    .delay(ant_delay)
-                    .style("visibility","visible")
-
+                const makeAnnotations1 = d3.annotation().annotations(annotation_1);
+                d3
+                    .select(".dv1-svg1")
+                    .append("g")
+                    .attr("class","ant-group")
+                    .call(makeAnnotations1);
             }
             else if (selectedVar == "density") {
-
-                dv1_anntn_group
-                    .append("path")
-                    .attr("class","dv1-anntn-2-path1 annotation-path")
-                    .attr("d", "M140,260L150,130L350,130L410,180")
-                    .style("visibility","hidden")
-                    .transition()
-                    .delay(ant_delay)
-                    .style("visibility","visible")
-
-                dv1_anntn_group
-                    .append("text")
-                    .attr("class","dv1-anntn-2-text1 annotation-text-title")
-                    .attr("x", 150)
-                    .attr("y", 80)
-                    .text("India & Bangladesh")
-                    .style("visibility","hidden")
-                    .transition()
-                    .delay(ant_delay)
-                    .style("visibility","visible")
+                const makeAnnotations2 = d3.annotation().annotations(annotation_2);
+                d3
+                    .select(".dv1-svg1")
+                    .append("g")
+                    .attr("class","ant-group")
+                    .call(makeAnnotations2);
                 
-                dv1_anntn_group
-                    .append("text")
-                    .attr("class","dv1-anntn-2-text2 annotation-text")
-                    .attr("x", 150)
-                    .attr("y", 100)
-                    .text("Contries with high population")
-                    .style("visibility","hidden")
-                    .transition()
-                    .delay(ant_delay)
-                    .style("visibility","visible")
-                
-                dv1_anntn_group
-                    .append("text")
-                    .attr("class","dv1-anntn-2-text2 annotation-text")
-                    .attr("x", 150)
-                    .attr("y", 120)
-                    .text("density")
-                    .style("visibility","hidden")
-                    .transition()
-                    .delay(ant_delay)
-                    .style("visibility","visible")
-                
+                const makeAnnotations3 = d3.annotation().annotations(annotation_3);
+                d3
+                    .select(".dv1-svg1")
+                    .append("g")
+                    .attr("class","ant-group")
+                    .call(makeAnnotations3);
             }
             else {
-                dv1_anntn_group
-                    .append("path")
-                    .attr("class","dv1-anntn-3-path1 annotation-path")
-                    .attr("d", "M140,260L100,110L250,110")
-                    .style("visibility","hidden")
-                    .transition()
-                    .delay(ant_delay)
-                    .style("visibility","visible")
+                const makeAnnotations4 = d3.annotation().annotations(annotation_4);
+                d3
+                    .select(".dv1-svg1")
+                    .append("g")
+                    .attr("class","ant-group")
+                    .call(makeAnnotations4);
 
-                dv1_anntn_group
-                    .append("path")
-                    .attr("class","dv1-anntn-3-path2 annotation-path")
-                    .attr("d", "M270,200L390,110L450,110")
-                    .style("visibility","hidden")
-                    .transition()
-                    .delay(ant_delay)
-                    .style("visibility","visible")
-                
-                dv1_anntn_group
-                    .append("path")
-                    .attr("class","dv1-anntn-3-path3 annotation-path")
-                    .attr("d", "M360,200L450,110L500,110")
-                    .style("visibility","hidden")
-                    .transition()
-                    .delay(ant_delay)
-                    .style("visibility","visible")
+                const makeAnnotations5 = d3.annotation().annotations(annotation_5);
+                d3
+                    .select(".dv1-svg1")
+                    .append("g")
+                    .attr("class","ant-group")
+                    .call(makeAnnotations5);
 
-                dv1_anntn_group
-                    .append("text")
-                    .attr("class","dv1-anntn-3-text1 annotation-text-title")
-                    .attr("x", 100)
-                    .attr("y", 60)
-                    .text("India")
-                    .style("visibility","hidden")
-                    .transition()
-                    .delay(ant_delay)
-                    .style("visibility","visible")
-                
-                dv1_anntn_group
-                    .append("text")
-                    .attr("class","dv1-anntn-3-text2 annotation-text")
-                    .attr("x", 100)
-                    .attr("y", 80)
-                    .text("With fiertility rate closer")
-                    .style("visibility","hidden")
-                    .transition()
-                    .delay(ant_delay)
-                    .style("visibility","visible")
-
-                dv1_anntn_group
-                    .append("text")
-                    .attr("class","dv1-anntn-3-text3 annotation-text")
-                    .attr("x", 100)
-                    .attr("y", 100)
-                    .text("to rest of the contries")
-                    .style("visibility","hidden")
-                    .transition()
-                    .delay(ant_delay)
-                    .style("visibility","visible")
-
-                
-                dv1_anntn_group
-                    .append("text")
-                    .attr("class","dv1-anntn-3-text4 annotation-text-title")
-                    .attr("x", 390)
-                    .attr("y", 60)
-                    .text("Pakistan & Nigeria")
-                    .style("visibility","hidden")
-                    .transition()
-                    .delay(ant_delay)
-                    .style("visibility","visible")
-
-                dv1_anntn_group
-                    .append("text")
-                    .attr("class","dv1-anntn-3-text5 annotation-text")
-                    .attr("x", 390)
-                    .attr("y", 80)
-                    .text("Contries with higher")
-                    .style("visibility","hidden")
-                    .transition()
-                    .delay(ant_delay)
-                    .style("visibility","visible")
-
-                dv1_anntn_group
-                    .append("text")
-                    .attr("class","dv1-anntn-3-text6 annotation-text")
-                    .attr("x", 390)
-                    .attr("y", 100)
-                    .text("fertility rate")
-                    .style("visibility","hidden")
-                    .transition()
-                    .delay(ant_delay)
-                    .style("visibility","visible")
+                const makeAnnotations6 = d3.annotation().annotations(annotation_6);
+                d3
+                    .select(".dv1-svg1")
+                    .append("g")
+                    .attr("class","ant-group")
+                    .call(makeAnnotations6);
             }
             
         }
+
+        
 
     </script>
     <script>
@@ -522,104 +490,77 @@
                         .y(function(d) { return dv2_y(+d.population_growth_rate); })
                         (d.values)
                     })
+                    //.attrTween("d",pathTween);
+                /*
+                function pathTween() {
+                    var interpolate = d3.scale.quantile()
+                    .domain([0,1])
+                    .range(d3.range(1,years.dv2_length+1));
+                    return function(t){
+                        return line(data.slice(0,interpolate(t)));
+                };
+                }
+                */
             
             })
         }
 
         function dv2_annotations() {
-            d3.select(".dv2-svg1").select(".dv2-anntn-group").remove()
+            d3.select(".dv2-svg1").selectAll(".ant-group").remove()
              // Graph1 annotations
+            const annotation_1 = [
+                {
+                    note: {
+                        label: "Growth decline is slower then rest",
+                        title: "Pakistan & Nigeria",
+                        wrap: 250
+                    },
+                    type: d3.annotationCalloutCircle,
+                    subject: {
+                        radius: 40,         // circle radius
+                        radiusPadding: 20   // white space around circle befor connector
+                    },
+                    color: ["red"],
+                    x: 510,
+                    y: 150,
+                    dy: -90,
+                    dx: -50
+                }
+            ]
 
-            var dv2_anntn_group = d3.select(".dv2-svg1").append("g").attr("class","dv2-anntn-group");
+            const annotation_2 = [
+                {
+                    note: {
+                        label: "Countries showing promissing growth decline, whihch includes India",
+                        title: "",
+                        wrap: 250
+                    },
+                    type: d3.annotationCalloutRect,
+                    subject: {
+                        width: 10,         // circle radius
+                        height: 140   // white space around circle befor connector
+                    },
+                    color: ["green"],
+                    x: 515,
+                    y: 250,
+                    dy: 180,
+                    dx: -100
+                }
+            ]
 
-            var ant_delay = 4000;
-            dv2_anntn_group
-                    .append("path")
-                    .attr("class","dv2-anntn-1-path1 annotation-path")
-                    .attr("d", "M240,45L450,45L510,100")
-                    .style("visibility","hidden")
-                    .transition()
-                    .delay(ant_delay)
-                    .style("visibility","visible")
+            const makeAnnotations1 = d3.annotation().annotations(annotation_1);
+                d3
+                    .select(".dv2-svg1")
+                    .append("g")
+                    .attr("class","ant-group")
+                    .call(makeAnnotations1);
 
-            dv2_anntn_group
-                    .append("path")
-                    .attr("class","dv2-anntn-2-path1 annotation-path")
-                    .attr("d", "M140,480L380,480L510,390")
-                    .style("visibility","hidden")
-                    .transition()
-                    .delay(ant_delay)
-                    .style("visibility","visible")
-
-            dv2_anntn_group
-                //.select(".dv2-svg1")
-                .append("rect")
-                .attr("class","dv2-anntn-1-rect annotation-rect")
-                .attr("x",510)
-                .attr("y",100)
-                .attr("height",80)
-                .attr("width",20)
-                .style("visibility","hidden")
-                .transition()
-                .delay(ant_delay)
-                .style("visibility","visible")
-
-            dv2_anntn_group
-                .append("text")
-                .attr("class","dv2-anntn-1-text1 annotation-text-title")
-                .attr("x", 240)
-                .attr("y", 15)
-                .text("Pakistan & Nigeria")
-                .style("visibility","hidden")
-                .transition()
-                .delay(ant_delay)
-                .style("visibility","visible")
-            
-            dv2_anntn_group
-                .append("text")
-                .attr("class","dv2-anntn-1-text2 annotation-text")
-                .attr("x", 240)
-                .attr("y", 35)
-                .text("Growth decline is slower then rest")
-                .style("visibility","hidden")
-                .transition()
-                .delay(ant_delay)
-                .style("visibility","visible")
-
-            dv2_anntn_group
-                //.select(".dv2-svg1")
-                .append("rect")
-                .attr("class","dv2-anntn-2-rect annotation-rect")
-                .attr("x",510)
-                .attr("y",250)
-                .attr("height",140)
-                .attr("width",20)
-                .style("visibility","hidden")
-                .transition()
-                .delay(ant_delay)
-                .style("visibility","visible")
-
-            dv2_anntn_group
-                .append("text")
-                .attr("class","dv2-anntn-2-text1 annotation-text")
-                .attr("x", 140)
-                .attr("y", 450)
-                .text("Countries showing promissing growth")
-                .style("visibility","hidden")
-                .transition()
-                .delay(ant_delay)
-                .style("visibility","visible")
-            
-            dv2_anntn_group
-                .append("text")
-                .attr("class","dv2-anntn-2-text2 annotation-text")
-                .attr("x", 140)
-                .attr("y", 470)
-                .text("decline, whihch includes India")
-                .style("visibility","hidden")
-                .transition()
-                .delay(ant_delay)
-                .style("visibility","visible")
+            const makeAnnotations2 = d3.annotation().annotations(annotation_2);
+                d3
+                    .select(".dv2-svg1")
+                    .append("g")
+                    .attr("class","ant-group")
+                    .call(makeAnnotations2);
             
         }
 
