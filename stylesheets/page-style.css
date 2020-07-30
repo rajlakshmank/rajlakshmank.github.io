@@ -177,7 +177,7 @@ body {
   .annotation-rect {
     stroke: rgb(83, 28, 12);
     fill-opacity: 10%;
-    fill: black;
+    fill: none;
   }
 
   .annotation-text {

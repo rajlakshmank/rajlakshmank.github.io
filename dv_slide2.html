@@ -6,7 +6,6 @@
         
         <!-- Load d3.js -->
         <script src="https://d3js.org/d3.v4.min.js"></script>
-        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 
         <!-- Load stylesheets -->
         <link rel='stylesheet' type='text/css' href='./stylesheets/page-style.css'>
@@ -82,6 +81,13 @@
                     .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
         dv3_annotations();
+
+        // tooltips
+        var dv3_tooltip = d3.select('#scene_2_dataviz')
+                    .append('div')
+                    .attr('class', 'dv3 tooltip')
+                    .style('display', 'none');
+
         //Read the data
         var data_url = "https://raw.githubusercontent.com/rajlakshmank/rajlakshmank.github.io/master/data/India-EAG-States-Pop-Growth.csv";
         
@@ -105,7 +111,7 @@
             // A color scale: one color for each group
             var myColor = d3.scaleOrdinal()
                             .domain(allGroup)
-                            .range(d3.schemeTableau10);
+                            .range(["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#edc949","#af7aa1","#ff9da7","#9c755f","#bab0ab"]);
 
             // Add X axis --> it is a date format
             var x = d3.scaleLinear()
@@ -180,6 +186,26 @@
                 .attr("cy", function(d) { return y(d.value) } )
                 .attr("r", 5)
                 .attr("stroke", "white")
+                .on("mouseover", dv3_onMouseOver)
+                .on("mouseout", dv3_OnMouseOut)
+
+                function dv3_onMouseOver() {
+                    d3.select(this)
+                        .attr("r", "7");
+                    var d = d3.select(this).data()[0]
+                    console.log(d)
+                    dv3_tooltip
+                        .style('display', 'inline')
+                        .html("Year: " + d.time + '<br>' + "Population Growth Rate: " + d.value)
+                        .style('left', (d3.event.pageX))
+                        .style('top', (d3.event.pageY));
+                }
+                function dv3_OnMouseOut() {
+                    console.log(d3.event)
+                    d3.select(this)
+                        .attr("r", 5);
+                    dv3_tooltip.style('display', 'none');
+                }
                 
 
             // Add a label at the end of each line
@@ -211,14 +237,24 @@
                 .style("fill", function(d){ return myColor(d.name) })
                 .style("font-size", 15)
                 .on("click", function(d){
-                // is the element currently visible ?
-                currentOpacity = d3.selectAll("." + d.name).style("opacity")
-                // Change the opacity: from 0 to 1 or from 1 to 0
-                d3.selectAll("." + d.name).transition().style("opacity", currentOpacity == 1 ? 0:1)
+                    // is the element currently visible ?
+                    currentOpacity = d3.selectAll("." + d.name).style("opacity")
+                    eagOpacity = d3.selectAll(".EAG").style("opacity")
+                    // Change the opacity: from 0 to 1 or from 1 to 0
+                    if (d.name == "EAG" & eagOpacity == 1) {
+                        d3.select(".dv3-svg1").select(".dv3-anntn-group").remove()
+                        
+                    }
+                    if (d.name == "EAG" & eagOpacity == 0) {
+                        dv3_annotations()
+                    }
+                        
+                    d3.selectAll("." + d.name).transition().style("opacity", currentOpacity == 1 ? 0:1)
+
+                })
 
         })
 
-        })
 
 
         function dv3_annotations() {
