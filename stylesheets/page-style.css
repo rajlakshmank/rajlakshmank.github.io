@@ -131,6 +131,8 @@ body {
     font-size: 26;
     font-family: sans-serif;
     font-style: italic;
+    padding-top: 50;
+    padding-bottom: 50;
 }
 
 .article_header {

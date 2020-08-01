@@ -1,6 +1,6 @@
 <html lang="en">
     <head>
-        <title>DV Slide 3</title>
+        <title>India Population Growth - Slide 3</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
@@ -11,21 +11,25 @@
         <link rel='stylesheet' type='text/css' href='./stylesheets/page-style.css'>
     </head>
     <body>
+        <!-- Webpage Header -->
         <div class="header">
             <h1>Is India Slowing Its Population Growth?</h1>
-            <p class="header-text-footer-1">Data Visualization Aassignment - UIUC - MSDS</p>
+            <p class="header-text-footer-1">Data Visualization Assignment - UIUC - MSDS</p>
             <p class="header-text-footer-2">by Rajlakshman Kulkarni</p>
         </div>
 
+        <!-- Webpage header avigation Bar -->
         <div class="navbar">
             <a href="https://rajlakshmank.github.io/dv_slide2.html" class="right">&laquo; Previous</a>
             <a href="https://rajlakshmank.github.io/dv_slide1.html" class="right">Home</a>
           </div>
 
+        <!-- Webpage row division for artile and graph content -->
         <div class="row">
+            <!-- Webpage column division for artile-->
             <div class="column">
                 <article class="dv_article">
-                    <h3>A nation with diversity in every state</h3>
+                    <h3>Focus and policy shift should be on EAG states</h3>
                     <p>
                         One can not deny correlation between education and family planning. Countries in which couples are educated 
                         typically have smaller families. Yet cultural norms play significant roles as well. EAG states with a 3500 
@@ -34,16 +38,17 @@
                         Even though they are showing positive trends but far behind other states. 
                     </p>
                     <p>
-                        Chart below depicts the correlation between fertility rate and literacy rate for all indian states.
+                        Chart here depicts the correlation between fertility rate and literacy rate for all Indian states.
                     </p>
                     <p> 
                         Though on the world stage India is showing promising results, the need of the hour is to focus more on 
                         EAG states in elevating women's education and diversifying its investments in family planning. 
-                        A complex issue related to local culture, society and politics needs better innovative ideas every 
-                        decade or even more frequently.
+                        A complex issue related to local culture, society and politics needs better innovative ideas to curb population growth!
                     </p>
+                    <hr>
                 </article> 
             </div>
+            <!-- Webpage column division for graph-->
             <div class="column">
                 <h2 class="graph_header">Decadal Population Growth Rate <br>For EAG States, Non-EAG States And India</h2>
                 <div class="graph_buttons">
@@ -55,17 +60,21 @@
             </div>
         </div>
 
+        <!-- Webpage footer navigation bar-->
         <div class="navbar">
             <a href="https://rajlakshmank.github.io/dv_slide2.html" class="right">&laquo; Previous</a>
             <a href="https://rajlakshmank.github.io/dv_slide1.html" class="right">Home</a>
         </div>
 
+        <!-- Webpage footer-->
         <div class="footer">
             <h4>Reference - https://e360.yale.edu/features/why-india-is-making-progress-in-slowing-its-population-growth </h4>
             <h4>Data Curtacy - https://data.worldbank.org </h4>
             <h4>DataViz by Rajlakshman Kulkarni</h4>
         </div>
     </body>
+
+    <!-- Script section for graph 4-->
     <script>
         // set the dimensions and margins of the graph
         var margin = {top: 50, right: 200, bottom: 50, left: 60},
@@ -81,8 +90,6 @@
                     .append("g")
                     .attr("class","svg Group")
                     .attr("transform","translate(" + margin.left + "," + margin.top + ")");
-
-        //Graph Title
         
         //Add X axis
         var x = d3.scaleLinear()
@@ -121,7 +128,7 @@
             .attr("transform", "rotate(-90)")
             .attr("y", -margin.left+20)
             .attr("x", -margin.top-60)
-            .text("% Litracy Rate");
+            .text("% Literacy Rate");
 
         
         
@@ -133,7 +140,7 @@
         var legend_x = 280
         var legend_y = 10
         var legend_w = 12
-        // legend
+        // Create legend
         svg.append("rect").attr("x",legend_x).attr("y",legend_y).attr("width", legend_w).attr("height", legend_w).style("fill", "#59a14f")
         svg.append("rect").attr("x",legend_x).attr("y",legend_y + 30).attr("width", legend_w).attr("height", legend_w).style("fill", "#e15759")
         svg.append("rect").attr("x",legend_x).attr("y",legend_y + 60).attr("width", legend_w).attr("height", legend_w).style("fill", "#4e79a7")
@@ -151,48 +158,24 @@
         //Read the data
         var data_url = "https://raw.githubusercontent.com/rajlakshmank/rajlakshmank.github.io/master/data/India-StateWise-Pop-Growth.csv"
 
+        //Calling function to plot the graph for the initial year value 
         update(2001);
 
+        //Function to draw plot for the selected year value
         function update(selected_year) {
 
+            //Read the csv file
             d3.csv(data_url, function(data) {
 
                 //Filter data by year
                 var data_filtered = data.filter(function(d){ return +d.year == selected_year });
                 console.log(data_filtered);
 
-                // Highlight the zone that is hovered
-                var highlight = function(d){
-                    selected_zone = d.category
-                    //console.log("selectect dot category: "+ selected_zone);
-                    d3
-                        .selectAll("circle")
-                        .transition()
-                        .duration(200)
-                        .style("fill", "lightgrey")
-                        .attr("r", 3)
-
-                    d3
-                        .selectAll("." + selected_zone)
-                        .transition()
-                        .duration(200)
-                        .style("fill", color(selected_zone))
-                        .attr("r", 7)
-                }
-
-                // color the zone that is NOT hovered
-                var doNotHighlight = function(){
-                    d3
-                        .selectAll("circle")
-                        .transition()
-                        .duration(200)
-                        .style("fill", function (d) { return color(d.category) } )
-                        .attr("r", 5 )
-                }
-
+                //Bind the data to the cicles which do not exists 
                 var dots = svg.selectAll("circle")
                             .data(data_filtered)
                 
+                // Plot the circles for the data
                 dots
                     .enter()
                     .append("circle")
@@ -206,6 +189,7 @@
                     .on("mouseover", dv4_onMouseOver)
                     .on("mouseout", dv4_OnMouseOut)
 
+                // Add transitions to the circles for the year selected
                 dots
                     .transition()
                     .duration(1000)
@@ -214,6 +198,7 @@
                     .attr("r", 5)
                     .style("fill", function (d) { return color(d.category) } )
 
+                //Mouse move over function to highlight the circle and display the tooltip
                 function dv4_onMouseOver() {
                     d3.select(this)
                         .style("fill", "red")
@@ -225,6 +210,8 @@
                         .style('left', d3.event.pageX + 'px')
                         .style('top', d3.event.pageY + 'px');
                 }
+
+                //Mouse out function to remove the highlight and remove tooltip
                 function dv4_OnMouseOut() {
                     d3.select(this)
                         .style("fill", function(d) { return color(d.category); })
@@ -235,20 +222,27 @@
 
             })
 
+            //calling annotation funtion for the graph
             dv4_annotations(selected_year);
         
         }
 
+        //Fuction to draw annotations
         function dv4_annotations(selected_year) {
-            d3.select(".dv4-svg1").select(".dv4-anntn-group").remove()
-             // Graph1 annotations
 
+            //Remove annotations for the previous selection
+            d3.select(".dv4-svg1").select(".dv4-anntn-group").remove()
+            
+            // Graph1 annotations
             var dv4_anntn_group = d3.select(".dv4-svg1").append("g").attr("class","dv4-anntn-group");
 
+            //Set transition delay for the annotations
             var ant_delay = 2000;
+
 
             if (selected_year == 2001) {
 
+                //Annotation line
                 dv4_anntn_group
                     .append("path")
                     .attr("class","dv2-anntn-1-path1 annotation-path")
@@ -258,8 +252,8 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
 
+                //Annotation circle
                 dv4_anntn_group
-                    //.select(".dv2-svg1")
                     .append("circle")
                     .attr("class","dv4-anntn-1-circle annotation-circle")
                     .attr("cx",360)
@@ -270,6 +264,7 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
 
+                //Annotation text
                 dv4_anntn_group
                     .append("text")
                     .attr("class","dv4-anntn-1-text1 annotation-text")
@@ -281,18 +276,21 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
 
-                    dv4_anntn_group
+                //Annotation text
+                dv4_anntn_group
                     .append("text")
                     .attr("class","dv4-anntn-1-text2 annotation-text")
                     .attr("x", 400)
                     .attr("y", 200)
-                    .text("fertility rate & low litracy rate")
+                    .text("fertility rate & low literacy rate")
                     .style("visibility","hidden")
                     .transition()
                     .delay(ant_delay)
                     .style("visibility","visible")
             }
             else if (selected_year == 2011) {
+
+                //Annotation line
                 dv4_anntn_group
                     .append("path")
                     .attr("class","dv2-anntn-1-path1 annotation-path")
@@ -302,8 +300,8 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
 
+                //Annotation circle
                 dv4_anntn_group
-                    //.select(".dv2-svg1")
                     .append("circle")
                     .attr("class","dv4-anntn-1-circle annotation-circle")
                     .attr("cx",270)
@@ -314,6 +312,7 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
 
+                //Annotation text
                 dv4_anntn_group
                     .append("text")
                     .attr("class","dv4-anntn-1-text1 annotation-text")
@@ -325,18 +324,21 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
 
-                    dv4_anntn_group
+                //Annotation text
+                dv4_anntn_group
                     .append("text")
                     .attr("class","dv4-anntn-1-text2 annotation-text")
                     .attr("x", 400)
                     .attr("y", 200)
-                    .text("fertility rate & low litracy rate")
+                    .text("fertility rate & low literacy rate")
                     .style("visibility","hidden")
                     .transition()
                     .delay(ant_delay)
                     .style("visibility","visible")
             }
             else {
+
+                //Annotation line
                 dv4_anntn_group
                     .append("path")
                     .attr("class","dv2-anntn-1-path1 annotation-path")
@@ -346,8 +348,8 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
 
+                //Annotation circle
                 dv4_anntn_group
-                    //.select(".dv2-svg1")
                     .append("circle")
                     .attr("class","dv4-anntn-1-circle annotation-circle")
                     .attr("cx",235)
@@ -358,6 +360,7 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
 
+                //Annotation text
                 dv4_anntn_group
                     .append("text")
                     .attr("class","dv4-anntn-1-text1 annotation-text")
@@ -369,22 +372,18 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
 
-                    dv4_anntn_group
+                //Annotation text
+                dv4_anntn_group
                     .append("text")
                     .attr("class","dv4-anntn-1-text2 annotation-text")
                     .attr("x", 400)
                     .attr("y", 200)
-                    .text("fertility rate & low litracy rate")
+                    .text("fertility rate & low literacy rate")
                     .style("visibility","hidden")
                     .transition()
                     .delay(ant_delay)
                     .style("visibility","visible")
             }
-            
-
-            
         }
-
-
     </script>
 </html>

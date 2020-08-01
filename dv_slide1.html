@@ -1,6 +1,6 @@
 <html lang="en">
     <head>
-        <title>DV Slide 1</title>
+        <title>India Population Growth - Slide 1</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
@@ -11,18 +11,22 @@
         <link rel='stylesheet' type='text/css' href='./stylesheets/page-style.css'>
     </head>
     <body>
+        <!-- Webpage Header -->
         <div class="header">
             <h1>Is India Slowing Its Population Growth?</h1>
-            <p class="header-text-footer-1">Data Visualization Aassignment - UIUC - MSDS</p>
+            <p class="header-text-footer-1">Data Visualization Assignment - UIUC - MSDS</p>
             <p class="header-text-footer-2">by Rajlakshman Kulkarni</p>
         </div>
 
+        <!-- Webpage header avigation Bar -->
         <div class="navbar">
             <a href="https://rajlakshmank.github.io/dv_slide2.html" class="right">Next &raquo;</a>
             <a href="https://rajlakshmank.github.io/dv_slide1.html" class="right">Home</a>
           </div>
 
+        <!-- Webpage row division for artile and graph content -->
         <div class="row">
+            <!-- Webpage column division for artile-->
             <div class="column">
                 <article class="dv_article">
                     <article class="dv_article_main">
@@ -30,7 +34,7 @@
                             <b>“Hum Do Hamare Do”</b> which means <b>“We Two, Ours Two”</b> <br> A family planning initiative launched by 
                             the government of India in 1952 which encouraged couples to have at most two kids. Every government 
                             thereafter crafted a range of population policies for Indians to have smaller families. 
-                            By 2027, India is set to surpass China as the world's most populous country as per United Nations projects. 
+                            By 2027, India is set to surpass China as the world's most populous country as per United Nation projects. 
                             Is India taking necessary measures and making progress in slowing its population growth?
                         </p> 
                         <hr>
@@ -43,25 +47,22 @@
                         higher population density. India has just 2.4% world surface but supports and sustains a 
                         whooping 17.5% of the world population. At the current rate it's been estimated that India’s population will 
                         peak in the early 2060’s at 1.7 billion, putting additional pressure on the environment, natural resources 
-                        and economy. Hence curbing population growth definitely promises a better future for its citizens.
+                        and economy. Hence curbing population growth definitely promises a better future for its citizens (Refer Chart "Top Ten Countries In The World By Population").
                     </p>
                     <p>
-                        These alarming statistics hide a more complex reality, and some positive trends. For the past few decades 
-                        population growth rate has been slowing down among 10 most populous countries and the rest of the world. 
+                        Behind these alarming statistics there are some positive trends. For the past few decades population growth rate has been slowing down among 10 most populous countries and the rest of the world. 
                         Pakistan and Nigeria are outliers, for which fertility rates are above replacement level and rest have hit 
                         the replacement level. Hence proving fertility rate plays an important role among all 
-                        social and economical indicators in slowing down population growth.
-                    </p>
-                    <p>
-                        As in much of the rest of the world, India has shown a positive trend in the current decade and it is expected 
-                        to hit replacement fertility level by 2021. But behind that statistic lies more complex reality. 
+                        social and economical indicators in slowing down population growth (Refer Chart "Population Growth Rate Trajectories").
                     </p>
                     <p>
                         Chart 1 animates and depicts population, population density and fertility rates for ten most populous countries of the world. 
-                        Chart 2 on the other hand shows population growth rate for these countries from 1960.
+                        Chart 2 on the other hand shows population growth rate tragectories for these countries from 1960. As in much of the rest of the world, India has shown a positive trend in the current decade and it is expected 
+                        to hit replacement fertility level by 2021. But decline in population growth rate for the past decade is good enough for country like India? 
                     </p>
                 </article>
             </div>
+            <!-- Webpage column division for graph-->
             <div class="column">
                 <h2 class="graph_header">Top Ten Countries In The World By Population</h2>
                 <div class="graph_buttons">
@@ -80,24 +81,29 @@
             </div>
         </div>
 
+        <!-- Webpage footer navigation bar-->
         <div class="navbar">
             <a href="https://rajlakshmank.github.io/dv_slide2.html" class="right">Next &raquo;</a>
             <a href="https://rajlakshmank.github.io/dv_slide1.html" class="right">Home</a>
         </div>
 
+        <!-- Webpage footer-->
         <div class="footer">
             <h4>Reference - https://e360.yale.edu/features/why-india-is-making-progress-in-slowing-its-population-growth </h4>
             <h4>Data Curtacy - https://data.worldbank.org </h4>
             <h4>DataViz by Rajlakshman Kulkarni</h4>
         </div>
     </body>
+
+    
+    <!-- Script section for graph 1-->
     <script>
         // set the dimensions and margins of the graph
         var dv1_margin = {top: 20, right: 30, bottom: 80, left: 70},
         dv1_width = 550 - dv1_margin.left - dv1_margin.right,
         dv1_height = 450 - dv1_margin.top - dv1_margin.bottom;
 
-        // append the svg object to the body of the page
+        // Append the svg object to the body of the page
         var dv1_svg = d3.select("#scene_1_dv1")
                     .append("svg")
                     .attr("class","dv1-svg1")
@@ -124,9 +130,9 @@
                     .attr("class", "dv1 Y-axis")
 
         // Color scale
-        //var dv1_color = d3.scaleOrdinal(d3.schemeTableau10);
         var dv1_color = d3.scaleOrdinal(["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#edc949","#af7aa1","#ff9da7","#9c755f","#bab0ab"]);
-        // tooltips
+        
+        // Initialize Tooltip
         var dv1_tooltip = d3.select('#scene_1_dv1')
                     .append('div')
                     .attr('class', 'dv1 tooltip')
@@ -136,18 +142,22 @@
     
         var dv1_url = "https://raw.githubusercontent.com/rajlakshmank/rajlakshmank.github.io/master/data/top-10-countries-population-data.csv"
         
+        //Calling function to read CSV and plot the graph 1 for the selected variable
         update(selectedVar);
 
+        // Funtion to read CSV and plot the graph
         function update(selectedVar) {
 
+            //Calling funtion to draw annotations
             dv1_annotations(selectedVar);
 
+            //Read CSV and plot graph
             d3.csv(dv1_url, function(dv1_data) {
 
-                console.log(dv1_data);
+                //console.log(dv1_data);
                 //console.log("function update - selectedVar: " + selectedVar);
                 
-                // X axis
+                // Add X axis
                 dv1_x.domain(dv1_data.map(function(d) { return d.country; }))
                 dv1_xAxis
                     .transition()
@@ -158,7 +168,7 @@
                     .attr("class","graph_axis_text")
 
 
-                // Add Y axis
+                // Add Y axis 
                 dv1_y.domain([0, d3.max(dv1_data, function(d) { return +d[selectedVar] }) ]);
                 dv1_yAxis
                     .transition()
@@ -166,7 +176,6 @@
                     .call(d3.axisLeft(dv1_y))
                     .selectAll("text")
                     .attr("class","graph_axis_text")
-                    //.style("fill", "#69a3b2");
                 
                 //Y-axis title
                 dv1_yAxis_text = "Population in Billion"
@@ -189,11 +198,11 @@
                     .text(dv1_yAxis_text);
                 
 
-                //color.domain([d3.min(data, function(d) { return +d[selectedVar] }), d3.max(data, function(d) { return +d[selectedVar] })]);
                 //Bind data to non existant rectangles
                 var dv1_bars = dv1_svg.selectAll("rect")
                     .data(dv1_data)
-                    
+                
+                //Plot bars/rectangles
                 dv1_bars
                     .enter()
                     .append("rect")
@@ -206,6 +215,7 @@
                     .on("mouseover", dv1_onMouseOver)
                     .on("mouseout", dv1_OnMouseOut)
 
+                //Define transition for bar chart/rectangles
                 dv1_bars
                     .transition()
                     .duration(1000)
@@ -215,6 +225,7 @@
                     .attr("height", function(d) { return dv1_height - dv1_y(d[selectedVar]); })
                     .attr("fill", function(d) { return dv1_color(d.country); })
 
+                //Graph 1 mouse over funtion to highlight and display tooltip
                 function dv1_onMouseOver() {
                     d3.select(this).attr("fill", "black");
                     var d = d3.select(this).data()[0]
@@ -224,6 +235,8 @@
                         .style('left', (d3.event.pageX))
                         .style('top', (d3.event.pageY));
                 }
+
+                //Graph 1 mouse out funtion to remove highlight and remove tooltip
                 function dv1_OnMouseOut() {
                     d3.select(this).attr("fill", function(d) { return dv1_color(d.country); });
                     dv1_tooltip.style('display', 'none');
@@ -234,17 +247,22 @@
         
         }
 
+        //Funtion to draw annotations for graph 1
         function dv1_annotations(selectedVar) {
 
+            //Remove annotation everytime a new variable button is clicked
             d3.select(".dv1-svg1").select(".dv1-anntn-group").remove()
 
              // Graph1 annotations
             var dv1_anntn_group = d3.select(".dv1-svg1").append("g").attr("class","dv1-anntn-group");
 
+            //Set delay variable for annotation transition
             var ant_delay = 2000;
-            // Add annotation to the chart
+
+            // Add annotation to the graph 1
             if (selectedVar == "pop_in_b") {
 
+                //Annotation line
                 dv1_anntn_group
                     .append("path")
                     .attr("class","dv1-anntn-1-path1 annotation-path")
@@ -254,6 +272,7 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
 
+                //Annotation text
                 dv1_anntn_group
                     .append("text")
                     .attr("class","dv1-anntn-1-text1 annotation-text-title")
@@ -265,12 +284,13 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
                 
+                //Annotation text
                 dv1_anntn_group
                     .append("text")
                     .attr("class","dv1-anntn-1-text2 annotation-text")
                     .attr("x", 240)
                     .attr("y", 100)
-                    .text("2nd most populous contry")
+                    .text("2nd most populous country")
                     .style("visibility","hidden")
                     .transition()
                     .delay(ant_delay)
@@ -279,6 +299,7 @@
             }
             else if (selectedVar == "density") {
 
+                //Annotation line
                 dv1_anntn_group
                     .append("path")
                     .attr("class","dv1-anntn-2-path1 annotation-path")
@@ -288,6 +309,7 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
 
+                //Annotation text
                 dv1_anntn_group
                     .append("text")
                     .attr("class","dv1-anntn-2-text1 annotation-text-title")
@@ -299,17 +321,19 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
                 
+                //Annotation text
                 dv1_anntn_group
                     .append("text")
                     .attr("class","dv1-anntn-2-text2 annotation-text")
                     .attr("x", 150)
                     .attr("y", 100)
-                    .text("Contries with high population")
+                    .text("Countries with high population")
                     .style("visibility","hidden")
                     .transition()
                     .delay(ant_delay)
                     .style("visibility","visible")
                 
+                //Annotation text
                 dv1_anntn_group
                     .append("text")
                     .attr("class","dv1-anntn-2-text2 annotation-text")
@@ -323,6 +347,8 @@
                 
             }
             else {
+
+                //Annotation line
                 dv1_anntn_group
                     .append("path")
                     .attr("class","dv1-anntn-3-path1 annotation-path")
@@ -332,6 +358,7 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
 
+                //Annotation line
                 dv1_anntn_group
                     .append("path")
                     .attr("class","dv1-anntn-3-path2 annotation-path")
@@ -341,6 +368,7 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
                 
+                //Annotation line
                 dv1_anntn_group
                     .append("path")
                     .attr("class","dv1-anntn-3-path3 annotation-path")
@@ -350,6 +378,7 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
 
+                //Annotation text
                 dv1_anntn_group
                     .append("text")
                     .attr("class","dv1-anntn-3-text1 annotation-text-title")
@@ -361,29 +390,31 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
                 
+                //Annotation text
                 dv1_anntn_group
                     .append("text")
                     .attr("class","dv1-anntn-3-text2 annotation-text")
                     .attr("x", 100)
                     .attr("y", 80)
-                    .text("With fiertility rate closer")
+                    .text("With fertility rate closer")
                     .style("visibility","hidden")
                     .transition()
                     .delay(ant_delay)
                     .style("visibility","visible")
 
+                //Annotation text
                 dv1_anntn_group
                     .append("text")
                     .attr("class","dv1-anntn-3-text3 annotation-text")
                     .attr("x", 100)
                     .attr("y", 100)
-                    .text("to rest of the contries")
+                    .text("to rest of the countries")
                     .style("visibility","hidden")
                     .transition()
                     .delay(ant_delay)
                     .style("visibility","visible")
 
-                
+                //Annotation text
                 dv1_anntn_group
                     .append("text")
                     .attr("class","dv1-anntn-3-text4 annotation-text-title")
@@ -395,17 +426,19 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
 
+                //Annotation text
                 dv1_anntn_group
                     .append("text")
                     .attr("class","dv1-anntn-3-text5 annotation-text")
                     .attr("x", 390)
                     .attr("y", 80)
-                    .text("Contries with higher")
+                    .text("Countries with higher")
                     .style("visibility","hidden")
                     .transition()
                     .delay(ant_delay)
                     .style("visibility","visible")
 
+                //Annotation text
                 dv1_anntn_group
                     .append("text")
                     .attr("class","dv1-anntn-3-text6 annotation-text")
@@ -421,6 +454,9 @@
         }
 
     </script>
+
+
+    <!-- Script section for graph 2-->
     <script>
 
 
@@ -429,11 +465,13 @@
             dv2_width = 550 - dv2_margin.left - dv2_margin.right,
             dv2_height = 550 - dv2_margin.top - dv2_margin.bottom;
         
+        //Plot the line chart - graph 2
         playLineChart();
 
+        //Function to plot line graph
         function playLineChart() {
+
             // append the svg object to the body of the page
-            //Reset the canvas
             d3.select("#scene_1_dv2").selectAll("*").remove()
             var dv2_svg = d3.select("#scene_1_dv2")
                         .append("svg")
@@ -444,28 +482,32 @@
                         .attr("class","dv2 svg1 group1")
                         .attr("transform","translate(" + dv2_margin.left + "," + dv2_margin.top + ")");
             
+            //Call annotation function to draw them
             dv2_annotations();
 
+            //Set tooltip
             var dv2_tooltip = d3.select('#scene_1_dv2')
                     .append('div')
                     .attr('class', 'dv2 tooltip')
                     .style('display', 'none');
 
             var dv2_url = "https://raw.githubusercontent.com/rajlakshmank/rajlakshmank.github.io/master/data/top-10-countries-population-growth-data.csv"
-            //Read the data
+            
+            //Read the data from Csv
             d3.csv(dv2_url, function(dv2_data) {
             
-                console.log(dv2_data);
-                // group the data: I want to draw one line per group
-                var dv2_sumstat = d3.nest() // nest function allows to group the calculation per level of a factor
+                //console.log(dv2_data);
+
+                //Group the data to draw one line per group
+                var dv2_sumstat = d3.nest()
                                 .key(function(d) { return d.country;})
                                 .entries(dv2_data);
             
-                // Add X axis --> it is a date format
+                // Add X axis
                 var dv2_x = d3.scaleLinear()
                         .domain(d3.extent(dv2_data, function(d) { return d.year; }))
                         .range([ 0, dv2_width ]);
-                    
+                
                 dv2_svg
                     .append("g")
                     .attr("class","dv2 X-axis")
@@ -503,14 +545,10 @@
                     .text("Population growth rate");
             
                 // color palette
-                var dv2_res = dv2_sumstat.map(function(d){ return d.key }) // list of group names
-                /*
-                var color = d3.scaleOrdinal()
-                    .domain(res)
-                    .range(['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628','#f781bf','#999999'])
-                */
-                //var dv2_color = d3.scaleOrdinal(d3.schemeTableau10);
+                var dv2_res = dv2_sumstat.map(function(d){ return d.key }) 
                 var dv2_color = d3.scaleOrdinal(["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#edc949","#af7aa1","#ff9da7","#9c755f","#bab0ab"]);
+                
+                
                 // Draw the line
                 dv2_svg
                     .selectAll(".line")
@@ -530,6 +568,7 @@
                     .on("mouseover", dv2_onMouseOver)
                     .on("mouseout", dv2_OnMouseOut)
 
+                //Line chart mouse over funtion to highlight and display tooltip 
                 function dv2_onMouseOver() {
                     d3.select(this)
                         .attr("stroke", "black")
@@ -537,10 +576,12 @@
                     var d = d3.select(this).data()[0]
                     dv2_tooltip
                         .style('display', 'inline')
-                        .html('Country ' + d.key)
+                        .html('Country: ' + d.key)
                         .style('left', (d3.event.pageX))
                         .style('top', (d3.event.pageY));
                 }
+
+                //Line chart mouse over funtion to remove highlight and remove tooltip 
                 function dv2_OnMouseOut() {
                     d3.select(this)
                         .attr("stroke", function(d) { return dv2_color(d.key); })
@@ -552,13 +593,19 @@
             })
         }
 
+        //Function to add annotation to graph 2
         function dv2_annotations() {
-            d3.select(".dv2-svg1").select(".dv2-anntn-group").remove()
-             // Graph1 annotations
 
+            //Remove annotation everytime annimation play button is clicked
+            d3.select(".dv2-svg1").select(".dv2-anntn-group").remove()
+            
+            // Graph1 annotations
             var dv2_anntn_group = d3.select(".dv2-svg1").append("g").attr("class","dv2-anntn-group");
 
+            // Transition delay set for annotations
             var ant_delay = 4000;
+            
+            // Annotation line
             dv2_anntn_group
                     .append("path")
                     .attr("class","dv2-anntn-1-path1 annotation-path")
@@ -568,6 +615,7 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
 
+            // Annotation line
             dv2_anntn_group
                     .append("path")
                     .attr("class","dv2-anntn-2-path1 annotation-path")
@@ -577,6 +625,7 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
 
+            // Annotation rectangle
             dv2_anntn_group
                 //.select(".dv2-svg1")
                 .append("rect")
@@ -590,6 +639,7 @@
                 .delay(ant_delay)
                 .style("visibility","visible")
 
+            // // Annotation text
             dv2_anntn_group
                 .append("text")
                 .attr("class","dv2-anntn-1-text1 annotation-text-title")
@@ -601,17 +651,19 @@
                 .delay(ant_delay)
                 .style("visibility","visible")
             
+            // Annotation text
             dv2_anntn_group
                 .append("text")
                 .attr("class","dv2-anntn-1-text2 annotation-text")
                 .attr("x", 240)
                 .attr("y", 35)
-                .text("Growth decline is slower then rest")
+                .text("Growth decline is slower than rest")
                 .style("visibility","hidden")
                 .transition()
                 .delay(ant_delay)
                 .style("visibility","visible")
 
+            // Annotation rectangle
             dv2_anntn_group
                 //.select(".dv2-svg1")
                 .append("rect")
@@ -625,6 +677,7 @@
                 .delay(ant_delay)
                 .style("visibility","visible")
 
+            // Annotation text
             dv2_anntn_group
                 .append("text")
                 .attr("class","dv2-anntn-2-text1 annotation-text")
@@ -636,6 +689,7 @@
                 .delay(ant_delay)
                 .style("visibility","visible")
             
+            // Annotation text
             dv2_anntn_group
                 .append("text")
                 .attr("class","dv2-anntn-2-text2 annotation-text")
