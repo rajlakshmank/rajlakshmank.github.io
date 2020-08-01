@@ -1,6 +1,6 @@
 <html lang="en">
     <head>
-        <title>DV Slide 2</title>
+        <title>India Population Growth - Slide 2</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
@@ -11,25 +11,29 @@
         <link rel='stylesheet' type='text/css' href='./stylesheets/page-style.css'>
     </head>
     <body>
+        <!-- Webpage Header -->
         <div class="header">
             <h1>Is India Slowing Its Population Growth?</h1>
-            <p class="header-text-footer-1">Data Visualization Aassignment - UIUC - MSDS</p>
+            <p class="header-text-footer-1">Data Visualization Assignment - UIUC - MSDS</p>
             <p class="header-text-footer-2">by Rajlakshman Kulkarni</p>
         </div>
 
+        <!-- Webpage header avigation Bar -->
         <div class="navbar">
             <a href="https://rajlakshmank.github.io/dv_slide3.html" class="right">Next &raquo;</a>
             <a href="https://rajlakshmank.github.io/dv_slide1.html" class="right">&laquo; Previous</a>
             <a href="https://rajlakshmank.github.io/dv_slide1.html" class="right">Home</a>
         </div>
 
+        <!-- Webpage row division for artile and graph content -->
         <div class="row">
+            <!-- Webpage column division for artile-->
             <div class="column">
                 <article class="dv_article">
                     <h3>A nation with diversity in every state</h3>
                     <p>
                         India as a nation has 29 states and 7 union territories. Its culture is among the world's oldest. Today, As 
-                        diverse country every state has its own distinct culture, language, religion and food habits. 
+                        a diverse country, its every state has its own distinct culture, language, religion and food habits. 
                     </p>
                     <p>
                         States around the Gengetic plain, the region which has seen aryan migration about 3500 years ago are most 
@@ -45,6 +49,8 @@
                     </p>
                 </article> 
             </div>
+
+            <!-- Webpage column division for graph-->
             <div class="column">
                     <div id="scene_2_dataviz">
                         <h2 class="graph_header">Decadal Population Growth Rate <br>For EAG States, Non-EAG States And India</h2>
@@ -52,18 +58,22 @@
             </div>
         </div>
 
+        <!-- Webpage footer navigation bar-->
         <div class="navbar">
             <a href="https://rajlakshmank.github.io/dv_slide3.html" class="right">Next &raquo;</a>
             <a href="https://rajlakshmank.github.io/dv_slide1.html" class="right">&laquo; Previous</a>
             <a href="https://rajlakshmank.github.io/dv_slide1.html" class="right">Home</a>
         </div>
 
+        <!-- Webpage footer-->
         <div class="footer">
             <h4>Reference - https://e360.yale.edu/features/why-india-is-making-progress-in-slowing-its-population-growth </h4>
             <h4>Data Curtacy - https://data.worldbank.org </h4>
             <h4>DataViz by Rajlakshman Kulkarni</h4>
         </div>
     </body>
+
+    <!-- Script section for graph 3-->
     <script>
         // set the dimensions and margins of the graph
         var margin = {top: 60, right: 120, bottom: 80, left: 70},
@@ -80,6 +90,7 @@
                     .attr("class","svg1 group")
                     .attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
+        //Calling function to draw annotations
         dv3_annotations();
 
         // tooltips
@@ -88,17 +99,19 @@
                     .attr('class', 'dv3 tooltip')
                     .style('display', 'none');
 
-        //Read the data
+        //To Read the data
         var data_url = "https://raw.githubusercontent.com/rajlakshmank/rajlakshmank.github.io/master/data/India-EAG-States-Pop-Growth.csv";
         
+
+        // Read csv data
         d3.csv(data_url, function(data) {
             
-            console.log(data);
+            //console.log(data);
             // List of groups (here I have one group per column)
             var allGroup = ["INDIA", "EAG", "Non-EAG"]
 
-            // Reformat the data: we need an array of arrays of {x, y} tuples
-            var dataReady = allGroup.map( function(grpName) { // .map allows to do something for each element of the list
+            // Group the data
+            var dataReady = allGroup.map( function(grpName) { 
             return {
                     name: grpName,
                     values: data.map(function(d) {
@@ -113,7 +126,7 @@
                             .domain(allGroup)
                             .range(["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#edc949","#af7aa1","#ff9da7","#9c755f","#bab0ab"]);
 
-            // Add X axis --> it is a date format
+            // Add X axis
             var x = d3.scaleLinear()
                     .domain([1960,2020])
                     .range([ 0, width ]);
@@ -152,7 +165,7 @@
                 .attr("x", -margin.top-60)
                 .text("% Population Growth");
 
-            // Add the lines
+            // Add the lines to the graph
             var line = d3.line()
                         .x(function(d) { return x(+d.time) })
                         .y(function(d) { return y(+d.value) })
@@ -168,16 +181,16 @@
                 .style("stroke-width", 4)
                 .style("fill", "none")
 
-            // Add the points
+            // Add the points to the graph
             svg
-                // First we need to enter in a group
+                //Enter in a group
                 .selectAll("myDots")
                 .data(dataReady)
                 .enter()
                 .append('g')
                 .style("fill", function(d){ return myColor(d.name) })
                 .attr("class", function(d){ return d.name })
-                // Second we need to enter in the 'values' part of this group
+                // Enter in the 'values' part of this group
                 .selectAll("myPoints")
                 .data(function(d){ return d.values })
                 .enter()
@@ -189,6 +202,7 @@
                 .on("mouseover", dv3_onMouseOver)
                 .on("mouseout", dv3_OnMouseOut)
 
+                //Graph mouse over function to highlight the line and display tooltip
                 function dv3_onMouseOver() {
                     d3.select(this)
                         .attr("r", "7");
@@ -200,6 +214,8 @@
                         .style('left', (d3.event.pageX))
                         .style('top', (d3.event.pageY));
                 }
+
+                //Graph mouse out function to remove highlight and tooltip
                 function dv3_OnMouseOut() {
                     console.log(d3.event)
                     d3.select(this)
@@ -216,9 +232,9 @@
                 .append('g')
                 .append("text")
                 .attr("class", function(d){ return d.name })
-                .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; }) // keep only the last value of each time series
-                .attr("transform", function(d) { return "translate(" + x(d.value.time) + "," + y(d.value.value) + ")"; }) // Put the text at the position of the last point
-                .attr("x", 12) // shift the text a bit more right
+                .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; }) 
+                .attr("transform", function(d) { return "translate(" + x(d.value.time) + "," + y(d.value.value) + ")"; }) 
+                .attr("x", 12) 
                 .text(function(d) { return d.name; })
                 .style("fill", function(d){ return myColor(d.name) })
                 .style("font-size", 15)
@@ -237,13 +253,10 @@
                 .style("fill", function(d){ return myColor(d.name) })
                 .style("font-size", 15)
                 .on("click", function(d){
-                    // is the element currently visible ?
                     currentOpacity = d3.selectAll("." + d.name).style("opacity")
                     eagOpacity = d3.selectAll(".EAG").style("opacity")
-                    // Change the opacity: from 0 to 1 or from 1 to 0
                     if (d.name == "EAG" & eagOpacity == 1) {
-                        d3.select(".dv3-svg1").select(".dv3-anntn-group").remove()
-                        
+                        d3.select(".dv3-svg1").select(".dv3-anntn-group").remove() 
                     }
                     if (d.name == "EAG" & eagOpacity == 0) {
                         dv3_annotations()
@@ -256,15 +269,17 @@
         })
 
 
-
+        //Function to draw annotations
         function dv3_annotations() {
             d3.select(".dv3-svg1").select(".dv3-anntn-group").remove()
-             // Graph1 annotations
-
+            
+            // Graph1 annotations
             var dv3_anntn_group = d3.select(".dv3-svg1").append("g").attr("class","dv3-anntn-group");
 
+            //Set transition delay for annotations
             var ant_delay = 2000;
             
+            // Annotation Line
             dv3_anntn_group
                     .append("path")
                     .attr("class","dv2-anntn-1-path1 annotation-path")
@@ -273,7 +288,7 @@
                     .transition()
                     .delay(ant_delay)
                     .style("visibility","visible")
-
+            // Annotation Line
             dv3_anntn_group
                     .append("path")
                     .attr("class","dv2-anntn-2-path1 annotation-path")
@@ -283,6 +298,7 @@
                     .delay(ant_delay)
                     .style("visibility","visible")
             
+            // Annotation Rectangle
             dv3_anntn_group
                 //.select(".dv2-svg1")
                 .append("rect")
@@ -296,6 +312,7 @@
                 .delay(ant_delay)
                 .style("visibility","visible")
 
+            // Annotation Circle
             dv3_anntn_group
                 //.select(".dv2-svg1")
                 .append("circle")
@@ -308,6 +325,7 @@
                 .delay(ant_delay)
                 .style("visibility","visible")
 
+            // Annotation Text
             dv3_anntn_group
                 .append("text")
                 .attr("class","dv2-anntn-1-text1 annotation-text")
@@ -319,6 +337,7 @@
                 .delay(ant_delay)
                 .style("visibility","visible")
 
+            // Annotation Text
             dv3_anntn_group
                 .append("text")
                 .attr("class","dv2-anntn-1-text2 annotation-text")
@@ -330,6 +349,7 @@
                 .delay(ant_delay)
                 .style("visibility","visible")
 
+            // Annotation Text
             dv3_anntn_group
                 .append("text")
                 .attr("class","dv2-anntn-1-text3 annotation-text")
@@ -341,6 +361,7 @@
                 .delay(ant_delay)
                 .style("visibility","visible")
             
+            // Annotation Text
             dv3_anntn_group
                 .append("text")
                 .attr("class","dv2-anntn-2-text1 annotation-text")
@@ -352,6 +373,7 @@
                 .delay(ant_delay)
                 .style("visibility","visible")
             
+            // Annotation Text
             dv3_anntn_group
                 .append("text")
                 .attr("class","dv2-anntn-2-text2 annotation-text")
