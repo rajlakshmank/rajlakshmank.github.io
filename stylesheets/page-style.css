@@ -177,13 +177,24 @@ body {
   }
 
   .annotation-rect {
-    stroke: rgb(83, 28, 12);
+    stroke: #0e7013;
+    fill-opacity: 10%;
+    fill: none;
+  }
+
+  .annotation-rect-outlier {
+    stroke: #d817b8;
     fill-opacity: 10%;
     fill: none;
   }
 
   .annotation-text {
-    fill: rgb(83, 28, 12);
+    fill: #0e7013;
+    font-size: 14;
+  }
+
+  .annotation-text-outlier {
+    fill: #d817b8;
     font-size: 14;
   }
 
@@ -194,12 +205,53 @@ body {
   }
 
   .annotation-path {
-      stroke: rgb(83, 28, 12);
+      stroke: #0e7013;
       fill: none;
   }
 
+  .annotation-path-outlier {
+    stroke: #d817b8;
+    fill: none;
+}
+
   .annotation-circle {
-    stroke: rgb(83, 28, 12);
+    stroke: #0e7013;
     fill-opacity: 10%;
     fill: none;
+  }
+
+  .annotation-circle-outlier {
+    stroke: #d817b8;
+    fill-opacity: 10%;
+    fill: none;
+  }
+
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 40%;
+
+  }
+  
+  td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+  th {
+    border: 1px solid #3e8e41;
+    background-color: #3e8e41;
+    color: #fff;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+  .div-table {
+      padding: 10, 50, 10, 50
+
   }

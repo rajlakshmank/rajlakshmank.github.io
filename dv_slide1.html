@@ -60,6 +60,9 @@
                         Chart 2 on the other hand shows population growth rate tragectories for these countries from 1960. As in much of the rest of the world, India has shown a positive trend in the current decade and it is expected 
                         to hit replacement fertility level by 2021. But decline in population growth rate for the past decade is good enough for country like India? 
                     </p>
+                    <p>
+                        *Please hover on each chart to explore further information.
+                    </p>
                 </article>
             </div>
             <!-- Webpage column division for graph-->
@@ -265,7 +268,7 @@
                 //Annotation line
                 dv1_anntn_group
                     .append("path")
-                    .attr("class","dv1-anntn-1-path1 annotation-path")
+                    .attr("class","dv1-anntn-1-path1 annotation-path-outlier")
                     .attr("d", "M150,160L240,110L420,110")
                     .style("visibility","hidden")
                     .transition()
@@ -287,7 +290,7 @@
                 //Annotation text
                 dv1_anntn_group
                     .append("text")
-                    .attr("class","dv1-anntn-1-text2 annotation-text")
+                    .attr("class","dv1-anntn-1-text2 annotation-text-outlier")
                     .attr("x", 240)
                     .attr("y", 100)
                     .text("2nd most populous country")
@@ -302,7 +305,7 @@
                 //Annotation line
                 dv1_anntn_group
                     .append("path")
-                    .attr("class","dv1-anntn-2-path1 annotation-path")
+                    .attr("class","dv1-anntn-2-path1 annotation-path-outlier")
                     .attr("d", "M140,260L150,130L350,130L410,180")
                     .style("visibility","hidden")
                     .transition()
@@ -324,7 +327,7 @@
                 //Annotation text
                 dv1_anntn_group
                     .append("text")
-                    .attr("class","dv1-anntn-2-text2 annotation-text")
+                    .attr("class","dv1-anntn-2-text2 annotation-text-outlier")
                     .attr("x", 150)
                     .attr("y", 100)
                     .text("Countries with high population")
@@ -336,7 +339,7 @@
                 //Annotation text
                 dv1_anntn_group
                     .append("text")
-                    .attr("class","dv1-anntn-2-text2 annotation-text")
+                    .attr("class","dv1-anntn-2-text2 annotation-text-outlier")
                     .attr("x", 150)
                     .attr("y", 120)
                     .text("density")
@@ -361,7 +364,7 @@
                 //Annotation line
                 dv1_anntn_group
                     .append("path")
-                    .attr("class","dv1-anntn-3-path2 annotation-path")
+                    .attr("class","dv1-anntn-3-path2 annotation-path-outlier")
                     .attr("d", "M270,200L390,110L450,110")
                     .style("visibility","hidden")
                     .transition()
@@ -371,7 +374,7 @@
                 //Annotation line
                 dv1_anntn_group
                     .append("path")
-                    .attr("class","dv1-anntn-3-path3 annotation-path")
+                    .attr("class","dv1-anntn-3-path3 annotation-path-outlier")
                     .attr("d", "M360,200L450,110L500,110")
                     .style("visibility","hidden")
                     .transition()
@@ -429,7 +432,7 @@
                 //Annotation text
                 dv1_anntn_group
                     .append("text")
-                    .attr("class","dv1-anntn-3-text5 annotation-text")
+                    .attr("class","dv1-anntn-3-text5 annotation-text-outlier")
                     .attr("x", 390)
                     .attr("y", 80)
                     .text("Countries with higher")
@@ -441,7 +444,7 @@
                 //Annotation text
                 dv1_anntn_group
                     .append("text")
-                    .attr("class","dv1-anntn-3-text6 annotation-text")
+                    .attr("class","dv1-anntn-3-text6 annotation-text-outlier")
                     .attr("x", 390)
                     .attr("y", 100)
                     .text("fertility rate")
@@ -608,7 +611,7 @@
             // Annotation line
             dv2_anntn_group
                     .append("path")
-                    .attr("class","dv2-anntn-1-path1 annotation-path")
+                    .attr("class","dv2-anntn-1-path1 annotation-path-outlier")
                     .attr("d", "M240,45L450,45L510,100")
                     .style("visibility","hidden")
                     .transition()
@@ -629,7 +632,7 @@
             dv2_anntn_group
                 //.select(".dv2-svg1")
                 .append("rect")
-                .attr("class","dv2-anntn-1-rect annotation-rect")
+                .attr("class","dv2-anntn-1-rect annotation-rect-outlier")
                 .attr("x",510)
                 .attr("y",100)
                 .attr("height",80)
@@ -654,7 +657,7 @@
             // Annotation text
             dv2_anntn_group
                 .append("text")
-                .attr("class","dv2-anntn-1-text2 annotation-text")
+                .attr("class","dv2-anntn-1-text2 annotation-text-outlier")
                 .attr("x", 240)
                 .attr("y", 35)
                 .text("Growth decline is slower than rest")
