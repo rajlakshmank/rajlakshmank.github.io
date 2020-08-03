@@ -43,9 +43,43 @@
                         states, non-EAG states and India. During 1981-2001 growth rate for EAG states remained the same. 
                         From 2001 onwards one can see a positive momentum. Still far behind in closing the gap with Non-EAG states. 
                     </p>
+                    <div class="div_table">
+                        <table>
+                            <tr>
+                                <th>EAG States</th>
+                            </tr>
+                            <tr>
+                                <td>Rajasthan</td>
+                            </tr>
+                            <tr>
+                                <td>Uttar Pradesh</td>
+                            </tr>
+                            <tr>
+                                <td>Uttarakhand</td>
+                            </tr>
+                            <tr>
+                                <td>Bihar</td>
+                            </tr>
+                            <tr>
+                                <td>Jharkhand</td>
+                            </tr>
+                            <tr>
+                                <td>Madhya Pradesh</td>
+                            </tr>
+                            <tr>
+                                <td>Chhattisgarh</td>
+                            </tr>
+                            <tr>
+                                <td>Orissa</td>
+                            </tr>
+                        </table>
+                    </div>
                     <p> 
                         Hence there lies a complex reality, even though India as a country showing promising results in slowing 
                         population growth. EAG states are lagging behind and are the most populated ones. 
+                    </p>
+                    <p>
+                        *Please hover on each chart to explore further information.
                     </p>
                 </article> 
             </div>
@@ -123,8 +157,10 @@
 
             // A color scale: one color for each group
             var myColor = d3.scaleOrdinal()
-                            .domain(allGroup)
-                            .range(["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#edc949","#af7aa1","#ff9da7","#9c755f","#bab0ab"]);
+                            //.domain(allGroup)
+                            //.range(["#4e79a7","#f28e2c","#e15759","#76b7b2","#59a14f","#edc949","#af7aa1","#ff9da7","#9c755f","#bab0ab"]);
+                            .domain(["Country", "EAG", "Non-EAG" ])
+                            .range(["#59a14f","#e15759","#4e79a7"])
 
             // Add X axis
             var x = d3.scaleLinear()
@@ -282,7 +318,7 @@
             // Annotation Line
             dv3_anntn_group
                     .append("path")
-                    .attr("class","dv2-anntn-1-path1 annotation-path")
+                    .attr("class","dv2-anntn-1-path1 annotation-path-outlier")
                     .attr("d", "M320,80L360,70L520,70")
                     .style("visibility","hidden")
                     .transition()
@@ -291,7 +327,7 @@
             // Annotation Line
             dv3_anntn_group
                     .append("path")
-                    .attr("class","dv2-anntn-2-path1 annotation-path")
+                    .attr("class","dv2-anntn-2-path1 annotation-path-outlier")
                     .attr("d", "M420,220L380,290L140,290")
                     .style("visibility","hidden")
                     .transition()
@@ -302,7 +338,7 @@
             dv3_anntn_group
                 //.select(".dv2-svg1")
                 .append("rect")
-                .attr("class","dv3-anntn-1-rect annotation-rect")
+                .attr("class","dv3-anntn-1-rect annotation-rect-outlier")
                 .attr("x",190)
                 .attr("y",80)
                 .attr("height",20)
@@ -316,7 +352,7 @@
             dv3_anntn_group
                 //.select(".dv2-svg1")
                 .append("circle")
-                .attr("class","dv3-anntn-2-circle annotation-circle")
+                .attr("class","dv3-anntn-2-circle annotation-circle-outlier")
                 .attr("cx",430)
                 .attr("cy",210)
                 .attr("r",15)
@@ -328,7 +364,7 @@
             // Annotation Text
             dv3_anntn_group
                 .append("text")
-                .attr("class","dv2-anntn-1-text1 annotation-text")
+                .attr("class","dv2-anntn-1-text1 annotation-text-outlier")
                 .attr("x", 360)
                 .attr("y", 20)
                 .text("Period where EAG states")
@@ -340,7 +376,7 @@
             // Annotation Text
             dv3_anntn_group
                 .append("text")
-                .attr("class","dv2-anntn-1-text2 annotation-text")
+                .attr("class","dv2-anntn-1-text2 annotation-text-outlier")
                 .attr("x", 360)
                 .attr("y", 40)
                 .text("had unchanged ")
@@ -352,7 +388,7 @@
             // Annotation Text
             dv3_anntn_group
                 .append("text")
-                .attr("class","dv2-anntn-1-text3 annotation-text")
+                .attr("class","dv2-anntn-1-text3 annotation-text-outlier")
                 .attr("x", 360)
                 .attr("y", 60)
                 .text("population growth rate")
@@ -364,7 +400,7 @@
             // Annotation Text
             dv3_anntn_group
                 .append("text")
-                .attr("class","dv2-anntn-2-text1 annotation-text")
+                .attr("class","dv2-anntn-2-text1 annotation-text-outlier")
                 .attr("x", 140)
                 .attr("y", 260)
                 .text("EAG states showing slower")
@@ -376,7 +412,7 @@
             // Annotation Text
             dv3_anntn_group
                 .append("text")
-                .attr("class","dv2-anntn-2-text2 annotation-text")
+                .attr("class","dv2-anntn-2-text2 annotation-text-outlier")
                 .attr("x", 140)
                 .attr("y", 280)
                 .text("decline in population growth rate")
